@@ -7,21 +7,31 @@
 //
 
 #import "ViewController.h"
+#import "VPPlayerLayer.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController ()
 
+@interface ViewController () {
+    AVPlayer *player;
+}
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
+    player = [AVPlayer playerWithURL:url];
+    playerView.player = player;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+-(IBAction)playVideo:(id) sender {
+    [player play];
+}
+
 
 @end

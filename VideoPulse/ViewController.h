@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@class VPPlayerLayer;
 
+@interface ViewController : UIViewController {
+
+    IBOutlet VPPlayerLayer *playerView;
+    
+}
 
 @end
 
