@@ -14,6 +14,8 @@
 @interface ViewController () {
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
+    AVAsset *asset;
+    IBOutlet UIImageView *output;
 }
 @end
 
@@ -22,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
+    asset = [AVAsset assetWithURL:url];
+    player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
     player = [AVPlayer playerWithURL:url];
     playerView.player = player;
 }
@@ -32,7 +36,18 @@
 
 -(IBAction)playVideo:(id) sender {
     [player play];
+    
+    // this via http://stackoverflow.com/questions/19105721/thumbnailimageattime-now-deprecated-whats-the-alternative
+    AVAssetImageGenerator *generate1 = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    generate1.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMake(2, 1);
+    CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:nil error:nil];
+    UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
+
+    [output setImage:one];
 }
+
+
 
 
 @end
