@@ -7,26 +7,30 @@
 //
 
 #import "ViewController.h"
+#import "VPPlayerLayer.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController ()
 
+@interface ViewController () {
+    AVPlayer *player;
+}
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
+    NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
+    player = [AVPlayer playerWithURL:url];
+    playerView.player = player;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(IBAction) playVideo:(id) sender {
-    NSURL *MyURL = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
-    NSLog(@"Got one %@", MyURL);
+-(IBAction)playVideo:(id) sender {
+    [player play];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  VPPlayerLayer.h
 //  VideoPulse
 //
 //  Created by Jack Chatterton on 1/31/15.
@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class VPPlayerLayer;
+@class AVPlayer;
 
-@interface ViewController : UIViewController {
+@interface VPPlayerLayer : UIView
 
-    IBOutlet VPPlayerLayer *playerView;
-    
-}
+- (void)setPlayer:(AVPlayer *)player;
 
 @end
-

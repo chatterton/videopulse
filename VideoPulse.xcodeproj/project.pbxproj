@@ -15,6 +15,8 @@
 		48E0C3EA1A7DB1AB00FE4545 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */; };
 		48E0C3F61A7DB1AB00FE4545 /* VideoPulseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C3F51A7DB1AB00FE4545 /* VideoPulseTests.m */; };
 		48E0C4011A7DB3EE00FE4545 /* video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C4001A7DB3EE00FE4545 /* video.mov */; };
+		48E0C4031A7DDD3300FE4545 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */; };
+		48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,9 @@
 		48E0C3F41A7DB1AB00FE4545 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48E0C3F51A7DB1AB00FE4545 /* VideoPulseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPulseTests.m; sourceTree = "<group>"; };
 		48E0C4001A7DB3EE00FE4545 /* video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = video.mov; sourceTree = "<group>"; };
+		48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		48E0C4051A7DF3F000FE4545 /* VPPlayerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPPlayerLayer.h; sourceTree = "<group>"; };
+		48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPPlayerLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48E0C4031A7DDD3300FE4545 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +71,7 @@
 		48E0C3CD1A7DB1AB00FE4545 = {
 			isa = PBXGroup;
 			children = (
+				48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */,
 				48E0C3D81A7DB1AB00FE4545 /* VideoPulse */,
 				48E0C3F21A7DB1AB00FE4545 /* VideoPulseTests */,
 				48E0C3D71A7DB1AB00FE4545 /* Products */,
@@ -87,6 +94,8 @@
 				48E0C3DE1A7DB1AB00FE4545 /* AppDelegate.m */,
 				48E0C3E01A7DB1AB00FE4545 /* ViewController.h */,
 				48E0C3E11A7DB1AB00FE4545 /* ViewController.m */,
+				48E0C4051A7DF3F000FE4545 /* VPPlayerLayer.h */,
+				48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */,
 				48E0C3E31A7DB1AB00FE4545 /* Main.storyboard */,
 				48E0C3E61A7DB1AB00FE4545 /* Images.xcassets */,
 				48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */,
@@ -233,6 +242,7 @@
 			files = (
 				48E0C3E21A7DB1AB00FE4545 /* ViewController.m in Sources */,
 				48E0C3DF1A7DB1AB00FE4545 /* AppDelegate.m in Sources */,
+				48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */,
 				48E0C3DC1A7DB1AB00FE4545 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
