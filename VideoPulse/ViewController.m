@@ -13,6 +13,7 @@
 
 @interface ViewController () {
     AVPlayer *player;
+    IBOutlet VPPlayerLayer *playerView;
 }
 @end
 

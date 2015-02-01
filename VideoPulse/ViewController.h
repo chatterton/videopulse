@@ -11,8 +11,6 @@
 @class VPPlayerLayer;
 
 @interface ViewController : UIViewController {
-
-    IBOutlet VPPlayerLayer *playerView;
     
 }
 
