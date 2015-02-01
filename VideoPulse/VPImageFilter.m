@@ -12,7 +12,8 @@
 @implementation VPImageFilter
 
 - (void)process:(UIImage *)image {
-    NSLog(@"got one: %d %d", image.size.width, image.size.height);
+    NSLog(@"got one: %f %f", image.size.width, image.size.height);
+    // Awesome, this puts out 1280 x 720 from the sample file
 }
 
 @end

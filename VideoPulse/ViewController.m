@@ -6,16 +6,18 @@
 //  Copyright (c) 2015 Postreal Media. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "VPPlayerLayer.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import "ViewController.h"
+#import "VPPlayerLayer.h"
+#import "VPImageFilter.h"
 
 @interface ViewController () {
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
     AVAsset *asset;
     IBOutlet UIImageView *output;
+    VPImageFilter *filter;
 }
 @end
 
@@ -23,6 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    filter = [[VPImageFilter alloc] init];
+
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     asset = [AVAsset assetWithURL:url];
     player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
@@ -37,7 +42,7 @@
 -(IBAction)playVideo:(id) sender {
     [player play];
     
-    // this via http://stackoverflow.com/questions/19105721/thumbnailimageattime-now-deprecated-whats-the-alternative
+    // this via stackoverflow.com/questions/19105721/thumbnailimageattime-now-deprecated-whats-the-alternative
     AVAssetImageGenerator *generate1 = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     generate1.appliesPreferredTrackTransform = YES;
     CMTime time = CMTimeMake(2, 1);
@@ -45,6 +50,7 @@
     UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
 
     [output setImage:one];
+    [filter process:one];
 }
 
 
