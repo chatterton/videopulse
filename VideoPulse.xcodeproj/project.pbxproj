@@ -17,6 +17,8 @@
 		48E0C4011A7DB3EE00FE4545 /* video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C4001A7DB3EE00FE4545 /* video.mov */; };
 		48E0C4031A7DDD3300FE4545 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */; };
 		48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */; };
+		48E0C40B1A7E06F700FE4545 /* VPCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C40A1A7E06F700FE4545 /* VPCapture.m */; };
+		48E0C40E1A7E1CC900FE4545 /* VPImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		48E0C4051A7DF3F000FE4545 /* VPPlayerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPPlayerLayer.h; sourceTree = "<group>"; };
 		48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPPlayerLayer.m; sourceTree = "<group>"; };
+		48E0C4091A7E06F700FE4545 /* VPCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPCapture.h; sourceTree = "<group>"; };
+		48E0C40A1A7E06F700FE4545 /* VPCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPCapture.m; sourceTree = "<group>"; };
+		48E0C40C1A7E1CC900FE4545 /* VPImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageFilter.h; sourceTree = "<group>"; };
+		48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,10 @@
 				48E0C3E11A7DB1AB00FE4545 /* ViewController.m */,
 				48E0C4051A7DF3F000FE4545 /* VPPlayerLayer.h */,
 				48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */,
+				48E0C4091A7E06F700FE4545 /* VPCapture.h */,
+				48E0C40A1A7E06F700FE4545 /* VPCapture.m */,
+				48E0C40C1A7E1CC900FE4545 /* VPImageFilter.h */,
+				48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */,
 				48E0C3E31A7DB1AB00FE4545 /* Main.storyboard */,
 				48E0C3E61A7DB1AB00FE4545 /* Images.xcassets */,
 				48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */,
@@ -241,9 +251,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				48E0C3E21A7DB1AB00FE4545 /* ViewController.m in Sources */,
+				48E0C40E1A7E1CC900FE4545 /* VPImageFilter.m in Sources */,
 				48E0C3DF1A7DB1AB00FE4545 /* AppDelegate.m in Sources */,
 				48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */,
 				48E0C3DC1A7DB1AB00FE4545 /* main.m in Sources */,
+				48E0C40B1A7E06F700FE4545 /* VPCapture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +448,7 @@
 				48E0C3FB1A7DB1AB00FE4545 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		48E0C3FC1A7DB1AB00FE4545 /* Build configuration list for PBXNativeTarget "VideoPulseTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +457,7 @@
 				48E0C3FE1A7DB1AB00FE4545 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
