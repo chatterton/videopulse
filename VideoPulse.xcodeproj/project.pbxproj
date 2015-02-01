@@ -14,6 +14,7 @@
 		48E0C3E71A7DB1AB00FE4545 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C3E61A7DB1AB00FE4545 /* Images.xcassets */; };
 		48E0C3EA1A7DB1AB00FE4545 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */; };
 		48E0C3F61A7DB1AB00FE4545 /* VideoPulseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C3F51A7DB1AB00FE4545 /* VideoPulseTests.m */; };
+		48E0C4011A7DB3EE00FE4545 /* video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 48E0C4001A7DB3EE00FE4545 /* video.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		48E0C3EF1A7DB1AB00FE4545 /* VideoPulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E0C3F41A7DB1AB00FE4545 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48E0C3F51A7DB1AB00FE4545 /* VideoPulseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPulseTests.m; sourceTree = "<group>"; };
+		48E0C4001A7DB3EE00FE4545 /* video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = video.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				48E0C3E61A7DB1AB00FE4545 /* Images.xcassets */,
 				48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */,
 				48E0C3D91A7DB1AB00FE4545 /* Supporting Files */,
+				48E0C3FF1A7DB3D400FE4545 /* Resources */,
 			);
 			path = VideoPulse;
 			sourceTree = "<group>";
@@ -117,6 +120,14 @@
 				48E0C3F41A7DB1AB00FE4545 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		48E0C3FF1A7DB3D400FE4545 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				48E0C4001A7DB3EE00FE4545 /* video.mov */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +212,7 @@
 			files = (
 				48E0C3E51A7DB1AB00FE4545 /* Main.storyboard in Resources */,
 				48E0C3EA1A7DB1AB00FE4545 /* LaunchScreen.xib in Resources */,
+				48E0C4011A7DB3EE00FE4545 /* video.mov in Resources */,
 				48E0C3E71A7DB1AB00FE4545 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
