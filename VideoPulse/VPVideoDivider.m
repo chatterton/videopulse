@@ -10,18 +10,41 @@
 #import <AVFoundation/AVFoundation.h>
 #import "VPVideoDivider.h"
 
-@implementation VPVideoDivider
+@implementation VPVideoDivider {
+    ImageCallback imageCallback;
+    AVAssetImageGenerator *generator;
+    int secondsIn;
+    float durationSeconds;
+}
 
 - (void)startWithCallback:(ImageCallback)callback {
+    imageCallback = callback;
 
-    // this via stackoverflow.com/questions/19105721/thumbnailimageattime-now-deprecated-whats-the-alternative
-    AVAssetImageGenerator *generate1 = [[AVAssetImageGenerator alloc] initWithAsset:self.asset];
-    generate1.appliesPreferredTrackTransform = YES;
-    CMTime time = CMTimeMake(2, 1);
-    CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:nil error:nil];
+    generator = [[AVAssetImageGenerator alloc] initWithAsset:self.asset];
+    generator.appliesPreferredTrackTransform = YES;
+
+    durationSeconds = CMTimeGetSeconds(self.asset.duration);
+    secondsIn = 0;
+
+    [self snapshotImage];
+}
+
+- (void)snapshotImage {
+
+    CMTime time = CMTimeMake(secondsIn, 1);
+    CGImageRef oneRef = [generator copyCGImageAtTime:time actualTime:nil error:nil];
     UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
-    callback(one);
+    imageCallback(one);
 
+    secondsIn++;
+    if (secondsIn < durationSeconds) {
+        [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(snapshotImage)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
 }
 
 @end
+
