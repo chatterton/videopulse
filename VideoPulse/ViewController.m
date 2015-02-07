@@ -11,13 +11,14 @@
 #import "ViewController.h"
 #import "VPPlayerLayer.h"
 #import "VPImageFilter.h"
+#import "VPVideoDivider.h"
 
 @interface ViewController () {
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
-    AVAsset *asset;
     IBOutlet UIImageView *output;
     VPImageFilter *filter;
+    VPVideoDivider *divider;
 }
 @end
 
@@ -29,9 +30,11 @@
     filter = [[VPImageFilter alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
-    asset = [AVAsset assetWithURL:url];
+    AVAsset *asset = [AVAsset assetWithURL:url];
     player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
     playerView.player = player;
+    divider = [[VPVideoDivider alloc] init];
+    divider.asset = asset;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,18 +43,15 @@
 
 -(IBAction)playVideo:(id) sender {
     [player play];
-    
-    // this via stackoverflow.com/questions/19105721/thumbnailimageattime-now-deprecated-whats-the-alternative
-    AVAssetImageGenerator *generate1 = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    generate1.appliesPreferredTrackTransform = YES;
-    CMTime time = CMTimeMake(2, 1);
-    CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:nil error:nil];
-    UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
-
-    [output setImage:one];
-    [filter process:one];
+    [divider startWithCallback:^(UIImage *image) {
+        [self processImageCallback:image];
+    }];
 }
 
+- (void)processImageCallback:(UIImage *) image {
+    [filter process:image];
+    [output setImage:image];
+}
 
 
 
