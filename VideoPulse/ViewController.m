@@ -31,7 +31,6 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     asset = [AVAsset assetWithURL:url];
     player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
-    player = [AVPlayer playerWithURL:url];
     playerView.player = player;
 }
 
