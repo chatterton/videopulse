@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Postreal Media. All rights reserved.
 //
 
-@class UIImage;
+@import UIKit;
 
 #import <Foundation/Foundation.h>
 
 @interface VPStreamProcessor : NSObject
 
-- (void)process:(UIImage *)image;
+- (void)process:(CGImageRef)image;
 
 @end

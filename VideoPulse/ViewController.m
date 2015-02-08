@@ -45,14 +45,14 @@
 
 -(IBAction)playVideo:(id) sender {
     [player play];
-    [divider startWithCallback:^(UIImage *image) {
+    [divider startWithCallback:^(CGImageRef image) {
         [self processImageCallback:image];
     }];
 }
 
-- (void)processImageCallback:(UIImage *) image {
+- (void)processImageCallback:(CGImageRef) image {
     [filter process:image];
-    [output setImage:image];
+    [output setImage:[UIImage imageWithCGImage:image]];
 }
 
 

@@ -7,13 +7,13 @@
 //
 
 #import "VPStreamProcessor.h"
-#import <UIKit/UIKit.h>
 
 @implementation VPStreamProcessor
 
-- (void)process:(UIImage *)image {
+- (void)process:(CGImageRef)image {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"got one: %f %f at time %f", image.size.width, image.size.height, timeInMiliseconds);
+
+    NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
 }
 
 @end
