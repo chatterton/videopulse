@@ -13,8 +13,9 @@
 @implementation VPVideoDivider {
     ImageCallback imageCallback;
     AVAssetImageGenerator *generator;
-    int secondsIn;
+    float secondsIn;
     float durationSeconds;
+    float interval;
 }
 
 - (void)startWithCallback:(ImageCallback)callback {
@@ -24,9 +25,12 @@
     generator.appliesPreferredTrackTransform = YES;
 
     durationSeconds = CMTimeGetSeconds(self.asset.duration);
-    secondsIn = 0;
-
+    secondsIn = 0.0;
     [self snapshotImage];
+}
+
+- (void)setDesiredFPS:(float)desiredFPS {
+    interval = 1.0 / desiredFPS;
 }
 
 - (void)snapshotImage {
@@ -37,9 +41,10 @@
     imageCallback(one);
     CGImageRelease(oneRef);
 
-    secondsIn++;
+
+    secondsIn += interval;
     if (secondsIn < durationSeconds) {
-        [NSTimer scheduledTimerWithTimeInterval:1.0
+        [NSTimer scheduledTimerWithTimeInterval:interval
                                          target:self
                                        selector:@selector(snapshotImage)
                                        userInfo:nil

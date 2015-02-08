@@ -33,8 +33,10 @@
     AVAsset *asset = [AVAsset assetWithURL:url];
     player = [AVPlayer playerWithPlayerItem:[AVPlayerItem playerItemWithAsset:asset]];
     playerView.player = player;
+
     divider = [[VPVideoDivider alloc] init];
     divider.asset = asset;
+    [divider setDesiredFPS:12.0];
 }
 
 - (void)didReceiveMemoryWarning {

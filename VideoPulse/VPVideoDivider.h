@@ -17,6 +17,7 @@
 typedef void (^ImageCallback)(UIImage *image);
 
 - (void)startWithCallback:(ImageCallback)callback;
+- (void)setDesiredFPS:(float)desiredFPS;
 
 @end
 
