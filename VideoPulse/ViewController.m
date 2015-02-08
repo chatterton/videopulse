@@ -17,7 +17,7 @@
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
     IBOutlet UIImageView *output;
-    VPStreamProcessor *filter;
+    VPStreamProcessor *processor;
     VPVideoDivider *divider;
 }
 @end
@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    filter = [[VPStreamProcessor alloc] init];
+    processor = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];
@@ -51,8 +51,8 @@
 }
 
 - (void)processImageCallback:(CGImageRef) image {
-    [filter process:image];
-    [output setImage:[UIImage imageWithCGImage:image]];
+    [processor process:image];
+    [output setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
 }
 
 

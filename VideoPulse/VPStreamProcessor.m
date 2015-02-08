@@ -8,12 +8,19 @@
 
 #import "VPStreamProcessor.h"
 
-@implementation VPStreamProcessor
+@implementation VPStreamProcessor {
+    CGImageRef lastImage;
+}
 
 - (void)process:(CGImageRef)image {
-    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    lastImage = image;
 
+    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
+}
+
+- (CGImageRef)lastProcessedImage {
+    return lastImage;
 }
 
 @end

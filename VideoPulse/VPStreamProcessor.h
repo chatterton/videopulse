@@ -14,4 +14,6 @@
 
 - (void)process:(CGImageRef)image;
 
+- (CGImageRef)lastProcessedImage;
+
 @end
