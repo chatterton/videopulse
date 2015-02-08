@@ -12,8 +12,8 @@
 @implementation VPImageFilter
 
 - (void)process:(UIImage *)image {
-    NSLog(@"got one: %f %f", image.size.width, image.size.height);
-    // Awesome, this puts out 1280 x 720 from the sample file
+    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    NSLog(@"got one: %f %f at time %f", image.size.width, image.size.height, timeInMiliseconds);
 }
 
 @end

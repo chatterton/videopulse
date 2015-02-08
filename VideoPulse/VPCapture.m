@@ -14,7 +14,7 @@
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     // Create a UIImage from the sample buffer data
     UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
-    NSLog(@"image: @d @d: ", image.size.height, image.size.width);
+    NSLog(@"image: %f %f: ", image.size.height, image.size.width);
 
     
     /*
