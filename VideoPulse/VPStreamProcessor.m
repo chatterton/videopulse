@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Postreal Media. All rights reserved.
 //
 
-#import "VPImageFilter.h"
+#import "VPStreamProcessor.h"
 #import <UIKit/UIKit.h>
 
-@implementation VPImageFilter
+@implementation VPStreamProcessor
 
 - (void)process:(UIImage *)image {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];

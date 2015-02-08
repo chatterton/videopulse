@@ -10,14 +10,14 @@
 
 #import "ViewController.h"
 #import "VPPlayerLayer.h"
-#import "VPImageFilter.h"
+#import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
 
 @interface ViewController () {
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
     IBOutlet UIImageView *output;
-    VPImageFilter *filter;
+    VPStreamProcessor *filter;
     VPVideoDivider *divider;
 }
 @end
@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    filter = [[VPImageFilter alloc] init];
+    filter = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];

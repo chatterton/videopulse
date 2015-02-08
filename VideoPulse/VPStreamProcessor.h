@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VPImageFilter : NSObject
+@interface VPStreamProcessor : NSObject
 
 - (void)process:(UIImage *)image;
 
