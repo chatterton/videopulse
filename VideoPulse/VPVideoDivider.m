@@ -35,6 +35,7 @@
     CGImageRef oneRef = [generator copyCGImageAtTime:time actualTime:nil error:nil];
     UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
     imageCallback(one);
+    CGImageRelease(oneRef);
 
     secondsIn++;
     if (secondsIn < durationSeconds) {
