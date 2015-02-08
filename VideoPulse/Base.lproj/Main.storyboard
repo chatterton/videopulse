@@ -13,11 +13,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLV-Me-PNg">
-                                <rect key="frame" x="264" y="285" width="73" height="30"/>
+                                <rect key="frame" x="364" y="285" width="73" height="30"/>
                                 <state key="normal" title="Play Video">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -26,19 +26,26 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wq-Zj-GPP" customClass="VPPlayerLayer">
-                                <rect key="frame" x="149" y="68" width="302" height="209"/>
+                                <rect key="frame" x="94" y="68" width="302" height="209"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ib-ju-CcA" customClass="UIImageView">
+                                <rect key="frame" x="404" y="68" width="302" height="209"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="3wq-Zj-GPP" secondAttribute="centerX" id="jcY-Tb-0uU"/>
+                            <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="Vcg-Hn-Ia2"/>
                             <constraint firstAttribute="centerY" secondItem="SLV-Me-PNg" secondAttribute="centerY" id="m7p-nB-P9L"/>
                             <constraint firstItem="SLV-Me-PNg" firstAttribute="top" secondItem="3wq-Zj-GPP" secondAttribute="bottom" constant="8" id="r6l-4y-PEF"/>
                             <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="u3Y-qA-ADn"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="800" height="600"/>
                     <connections>
+                        <outlet property="output" destination="8ib-ju-CcA" id="n7I-9f-GcN"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
                     </connections>
                 </viewController>
