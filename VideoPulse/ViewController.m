@@ -36,7 +36,7 @@
 
     divider = [[VPVideoDivider alloc] init];
     divider.asset = asset;
-    [divider setDesiredFPS:12.0];
+    [divider setDesiredFPS:6.0];
 }
 
 - (void)didReceiveMemoryWarning {
