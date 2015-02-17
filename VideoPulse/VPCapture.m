@@ -30,12 +30,8 @@
     // chosen device.
     session.sessionPreset = AVCaptureSessionPresetMedium;
 
-    // Find a suitable AVCaptureDevice
-    AVCaptureDevice *device = [AVCaptureDevice
-                               defaultDeviceWithMediaType:AVMediaTypeVideo];
-
     // Create a device input with the device and add it to the session.
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:[self frontCamera]
                                                                         error:&error];
     if (!input) {
         // Handle the error appropriately.
@@ -62,6 +58,18 @@
 
     // Start the session running to start the flow of data
     [session startRunning];
+}
+
+// cut and paste from
+// http://stackoverflow.com/questions/10795327/set-front-facing-camera-in-xcode
+- (AVCaptureDevice *)frontCamera {
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if ([device position] == AVCaptureDevicePositionFront) {
+            return device;
+        }
+    }
+    return nil;
 }
 
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
