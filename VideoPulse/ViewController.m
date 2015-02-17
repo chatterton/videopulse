@@ -55,6 +55,8 @@
     [output setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
 }
 
-
+-(IBAction)startCameraCapture:(id) sender {
+    
+}
 
 @end

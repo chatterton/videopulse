@@ -13,11 +13,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLV-Me-PNg">
-                                <rect key="frame" x="364" y="285" width="73" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLV-Me-PNg">
+                                <rect key="frame" x="94" y="285" width="73" height="30"/>
                                 <state key="normal" title="Play Video">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -29,21 +29,42 @@
                                 <rect key="frame" x="94" y="68" width="302" height="209"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ib-ju-CcA" customClass="UIImageView">
+                            <view contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ib-ju-CcA" customClass="UIImageView">
                                 <rect key="frame" x="404" y="68" width="302" height="209"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="302" id="KOE-C7-bzJ"/>
+                                    <constraint firstAttribute="height" constant="209" id="dej-5B-rdD"/>
+                                </constraints>
                             </view>
+                            <view contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CD0-EQ-JXH" customClass="UIImageView">
+                                <rect key="frame" x="94" y="353" width="302" height="209"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irP-SN-hB4">
+                                <rect key="frame" x="94" y="563" width="115" height="30"/>
+                                <state key="normal" title="Capture Camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startCameraCapture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OvI-cs-Ybr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="Vcg-Hn-Ia2"/>
-                            <constraint firstAttribute="centerY" secondItem="SLV-Me-PNg" secondAttribute="centerY" id="m7p-nB-P9L"/>
+                            <constraint firstItem="SLV-Me-PNg" firstAttribute="top" secondItem="3wq-Zj-GPP" secondAttribute="bottom" constant="8" id="0vh-6z-lfM"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="top" secondItem="SLV-Me-PNg" secondAttribute="bottom" constant="38" id="4Al-GV-rbJ"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="centerX" secondItem="CD0-EQ-JXH" secondAttribute="centerX" id="8aw-yr-Sfd"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="48" id="GxN-fL-iAN"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="leading" secondItem="irP-SN-hB4" secondAttribute="leading" id="fX3-1e-1eG"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="centerY" secondItem="8ib-ju-CcA" secondAttribute="centerY" id="ptS-pb-SaA"/>
                             <constraint firstItem="SLV-Me-PNg" firstAttribute="top" secondItem="3wq-Zj-GPP" secondAttribute="bottom" constant="8" id="r6l-4y-PEF"/>
-                            <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="u3Y-qA-ADn"/>
+                            <constraint firstItem="irP-SN-hB4" firstAttribute="top" secondItem="CD0-EQ-JXH" secondAttribute="bottom" constant="8" symbolic="YES" id="tgf-XG-YPh"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="800" height="600"/>
+                    <size key="freeformSize" width="800" height="800"/>
                     <connections>
                         <outlet property="output" destination="8ib-ju-CcA" id="n7I-9f-GcN"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
