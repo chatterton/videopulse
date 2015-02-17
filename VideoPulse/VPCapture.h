@@ -8,6 +8,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface VPCapture : AVCaptureVideoDataOutput
+@interface VPCapture : AVCaptureVideoDataOutput <AVCaptureVideoDataOutputSampleBufferDelegate>
+
+@property UIImage *lastCapturedImage;
 
 @end

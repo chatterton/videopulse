@@ -6,10 +6,62 @@
 //  Copyright (c) 2015 Postreal Media. All rights reserved.
 //
 
+// much of this via
+// https://developer.apple.com/library/ios/qa/qa1702/_index.html
+
+
 #import "VPCapture.h"
 #import <UIKit/UIKit.h>
 
-@implementation VPCapture
+@implementation VPCapture {
+    AVCaptureSession *session;
+}
+
+// Create and configure a capture session and start it running
+- (void)setupCaptureSession {
+    NSError *error = nil;
+
+    // Create the session
+    session = [[AVCaptureSession alloc] init];
+
+    // Configure the session to produce lower resolution video frames, if your
+    // processing algorithm can cope. We'll specify medium quality for the
+    // chosen device.
+    session.sessionPreset = AVCaptureSessionPresetMedium;
+
+    // Find a suitable AVCaptureDevice
+    AVCaptureDevice *device = [AVCaptureDevice
+                               defaultDeviceWithMediaType:AVMediaTypeVideo];
+
+    // Create a device input with the device and add it to the session.
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+                                                                        error:&error];
+    if (!input) {
+        // Handle the error appropriately.
+    }
+    [session addInput:input];
+
+    // Create a VideoDataOutput and add it to the session
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    [session addOutput:output];
+
+    // Configure your output.
+    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    [output setSampleBufferDelegate:self queue:queue];
+
+
+    // Specify the pixel format
+    output.videoSettings =
+    [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA]
+                                forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+
+    // If you wish to cap the frame rate to a known value, such as 15 fps, set
+    // minFrameDuration.
+    //output.minFrameDuration = CMTimeMake(1, 15); //deprecated
+
+    // Start the session running to start the flow of data
+    [session startRunning];
+}
 
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     // Create a UIImage from the sample buffer data
@@ -26,7 +78,6 @@
 }
 
 // Create a UIImage from sample buffer data
-// via https://developer.apple.com/library/ios/qa/qa1702/_index.html
 - (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer {
     // Get a CMSampleBuffer's Core Video image buffer for the media data
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
