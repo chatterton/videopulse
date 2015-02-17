@@ -12,13 +12,13 @@
 #import "VPPlayerLayer.h"
 #import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
+#import "VPCapture.h"
 
 @interface ViewController () {
     AVPlayer *player;
-    IBOutlet VPPlayerLayer *playerView;
-    IBOutlet UIImageView *output;
     VPStreamProcessor *processor;
     VPVideoDivider *divider;
+    VPCapture *capture;
 }
 @end
 
@@ -37,6 +37,8 @@
     divider = [[VPVideoDivider alloc] init];
     divider.asset = asset;
     [divider setDesiredFPS:6.0];
+
+    capture = [[VPCapture alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,17 +48,23 @@
 -(IBAction)playVideo:(id) sender {
     [player play];
     [divider startWithCallback:^(CGImageRef image) {
-        [self processImageCallback:image];
+        [self processVideoFrameCallback:image];
     }];
 }
 
-- (void)processImageCallback:(CGImageRef) image {
+- (void)processVideoFrameCallback:(CGImageRef) image {
     [processor process:image];
-    [output setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
+    [videoFrameOutput setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
 }
 
 -(IBAction)startCameraCapture:(id) sender {
-    
+    [capture startWithCallback:^(CGImageRef image) {
+        [self processCameraFrameCallback:image];
+    }];
+}
+
+- (void)processCameraFrameCallback:(CGImageRef) image {
+    [cameraFrameOutput setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
 }
 
 @end

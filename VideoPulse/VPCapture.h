@@ -10,6 +10,10 @@
 
 @interface VPCapture : AVCaptureVideoDataOutput <AVCaptureVideoDataOutputSampleBufferDelegate>
 
+typedef void (^ImageCallback)(CGImageRef image);
+
 @property CGImageRef lastCapturedImage;
+
+- (void)startWithCallback:(ImageCallback)callback;
 
 @end

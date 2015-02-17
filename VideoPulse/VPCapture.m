@@ -15,6 +15,7 @@
 
 @implementation VPCapture {
     AVCaptureSession *session;
+    ImageCallback imageCallback;
 }
 
 // Create and configure a capture session and start it running
@@ -107,6 +108,21 @@
     CGColorSpaceRelease(colorSpace);
     
     return quartzImage;
+}
+
+- (void)startWithCallback:(ImageCallback)callback {
+    imageCallback = callback;
+    [self setupCaptureSession];
+    [self snapshotImage];
+}
+
+- (void)snapshotImage {
+    imageCallback(self.lastCapturedImage);
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(snapshotImage)
+                                   userInfo:nil
+                                    repeats:NO];
 }
 
 @end

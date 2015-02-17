@@ -66,8 +66,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="800"/>
                     <connections>
-                        <outlet property="output" destination="8ib-ju-CcA" id="n7I-9f-GcN"/>
+                        <outlet property="cameraFrameOutput" destination="CD0-EQ-JXH" id="Ckl-Zi-dXb"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
+                        <outlet property="videoFrameOutput" destination="8ib-ju-CcA" id="H2x-91-xwV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
