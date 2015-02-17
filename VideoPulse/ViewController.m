@@ -16,7 +16,8 @@
 
 @interface ViewController () {
     AVPlayer *player;
-    VPStreamProcessor *processor;
+    VPStreamProcessor *videoProcessor;
+    VPStreamProcessor *cameraProcessor;
     VPVideoDivider *divider;
     VPCapture *capture;
 }
@@ -27,7 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    processor = [[VPStreamProcessor alloc] init];
+    videoProcessor = [[VPStreamProcessor alloc] init];
+    cameraProcessor = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];
@@ -53,8 +55,8 @@
 }
 
 - (void)processVideoFrameCallback:(CGImageRef) image {
-    [processor process:image];
-    [videoFrameOutput setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
+    [videoProcessor process:image];
+    [videoFrameOutput setImage:[UIImage imageWithCGImage:[videoProcessor lastProcessedImage]]];
 }
 
 -(IBAction)startCameraCapture:(id) sender {
@@ -64,7 +66,9 @@
 }
 
 - (void)processCameraFrameCallback:(CGImageRef) image {
-    [cameraFrameOutput setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
+    [cameraFrame setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
+    [cameraProcessor process:[capture lastCapturedImage]];
+    [processedCameraFrameOutput setImage:[UIImage imageWithCGImage:[cameraProcessor lastProcessedImage]]];
 }
 
 @end

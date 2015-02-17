@@ -76,8 +76,6 @@
 
     CGImageRef newImage = [self imageFromSampleBuffer:sampleBuffer];
     if (newImage) {
-        NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-        NSLog(@"captured image: %zu %zu at time %f", CGImageGetWidth(newImage), CGImageGetHeight(newImage), timeInMiliseconds);
         CGImageRelease(self.lastCapturedImage);
         self.lastCapturedImage = newImage;
     }
@@ -126,7 +124,7 @@
 
 - (void)snapshotImage {
     imageCallback(self.lastCapturedImage);
-    [NSTimer scheduledTimerWithTimeInterval:1.0
+    [NSTimer scheduledTimerWithTimeInterval:0.1
                                      target:self
                                    selector:@selector(snapshotImage)
                                    userInfo:nil
