@@ -36,11 +36,9 @@
 - (void)snapshotImage {
 
     CMTime time = CMTimeMake(secondsIn, 1);
-    CGImageRef oneRef = [generator copyCGImageAtTime:time actualTime:nil error:nil];
-    UIImage *one = [[UIImage alloc] initWithCGImage:oneRef];
-    imageCallback(one);
-    CGImageRelease(oneRef);
-
+    CGImageRef ref = [generator copyCGImageAtTime:time actualTime:nil error:nil];
+    imageCallback(ref);
+    CGImageRelease(ref);
 
     secondsIn += interval;
     if (secondsIn < durationSeconds) {

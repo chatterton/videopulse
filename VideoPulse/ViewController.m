@@ -10,14 +10,14 @@
 
 #import "ViewController.h"
 #import "VPPlayerLayer.h"
-#import "VPImageFilter.h"
+#import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
 
 @interface ViewController () {
     AVPlayer *player;
     IBOutlet VPPlayerLayer *playerView;
     IBOutlet UIImageView *output;
-    VPImageFilter *filter;
+    VPStreamProcessor *processor;
     VPVideoDivider *divider;
 }
 @end
@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    filter = [[VPImageFilter alloc] init];
+    processor = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];
@@ -36,7 +36,7 @@
 
     divider = [[VPVideoDivider alloc] init];
     divider.asset = asset;
-    [divider setDesiredFPS:12.0];
+    [divider setDesiredFPS:6.0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,14 +45,14 @@
 
 -(IBAction)playVideo:(id) sender {
     [player play];
-    [divider startWithCallback:^(UIImage *image) {
+    [divider startWithCallback:^(CGImageRef image) {
         [self processImageCallback:image];
     }];
 }
 
-- (void)processImageCallback:(UIImage *) image {
-    [filter process:image];
-    [output setImage:image];
+- (void)processImageCallback:(CGImageRef) image {
+    [processor process:image];
+    [output setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
 }
 
 

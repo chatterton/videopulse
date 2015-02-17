@@ -19,7 +19,7 @@
 		48E0C4031A7DDD3300FE4545 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E0C4021A7DDD3300FE4545 /* AVFoundation.framework */; };
 		48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */; };
 		48E0C40B1A7E06F700FE4545 /* VPCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C40A1A7E06F700FE4545 /* VPCapture.m */; };
-		48E0C40E1A7E1CC900FE4545 /* VPImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */; };
+		48E0C40E1A7E1CC900FE4545 /* VPStreamProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C40D1A7E1CC900FE4545 /* VPStreamProcessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +54,8 @@
 		48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPPlayerLayer.m; sourceTree = "<group>"; };
 		48E0C4091A7E06F700FE4545 /* VPCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPCapture.h; sourceTree = "<group>"; };
 		48E0C40A1A7E06F700FE4545 /* VPCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPCapture.m; sourceTree = "<group>"; };
-		48E0C40C1A7E1CC900FE4545 /* VPImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageFilter.h; sourceTree = "<group>"; };
-		48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageFilter.m; sourceTree = "<group>"; };
+		48E0C40C1A7E1CC900FE4545 /* VPStreamProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPStreamProcessor.h; sourceTree = "<group>"; };
+		48E0C40D1A7E1CC900FE4545 /* VPStreamProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPStreamProcessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +107,8 @@
 				48E0C4061A7DF3F000FE4545 /* VPPlayerLayer.m */,
 				48E0C4091A7E06F700FE4545 /* VPCapture.h */,
 				48E0C40A1A7E06F700FE4545 /* VPCapture.m */,
-				48E0C40C1A7E1CC900FE4545 /* VPImageFilter.h */,
-				48E0C40D1A7E1CC900FE4545 /* VPImageFilter.m */,
+				48E0C40C1A7E1CC900FE4545 /* VPStreamProcessor.h */,
+				48E0C40D1A7E1CC900FE4545 /* VPStreamProcessor.m */,
 				4844DB631A86C1B6001EE9DB /* VPVideoDivider.h */,
 				4844DB641A86C1B6001EE9DB /* VPVideoDivider.m */,
 				48E0C3E31A7DB1AB00FE4545 /* Main.storyboard */,
@@ -256,7 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48E0C3E21A7DB1AB00FE4545 /* ViewController.m in Sources */,
-				48E0C40E1A7E1CC900FE4545 /* VPImageFilter.m in Sources */,
+				48E0C40E1A7E1CC900FE4545 /* VPStreamProcessor.m in Sources */,
 				4844DB651A86C1B6001EE9DB /* VPVideoDivider.m in Sources */,
 				48E0C3DF1A7DB1AB00FE4545 /* AppDelegate.m in Sources */,
 				48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */,
