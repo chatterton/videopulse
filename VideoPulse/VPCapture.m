@@ -64,21 +64,19 @@
 }
 
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    // Create a UIImage from the sample buffer data
-    UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
-    NSLog(@"image: %f %f: ", image.size.height, image.size.width);
 
-    
-    /*
-    CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)CMSampleBufferGetImageBuffer(sampleBuffer);
-    CIImage *image = [CIImage imageWithCVPixelBuffer:pixelBuffer];
-    [coreImageContext drawImage:image atPoint:CGPointZero fromRect:[image extent]];
-    [self.context presentRenderbuffer:GL_RENDERBUFFER];
-    */
+    CGImageRef newImage = [self imageFromSampleBuffer:sampleBuffer];
+    if (newImage) {
+        NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+        NSLog(@"captured image: %zu %zu at time %f", CGImageGetWidth(newImage), CGImageGetHeight(newImage), timeInMiliseconds);
+        CGImageRelease(self.lastCapturedImage);
+        self.lastCapturedImage = newImage;
+    }
+
 }
 
-// Create a UIImage from sample buffer data
-- (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer {
+// Create an image from sample buffer data
+- (CGImageRef) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer {
     // Get a CMSampleBuffer's Core Video image buffer for the media data
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     // Lock the base address of the pixel buffer
@@ -108,13 +106,7 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-    // Create an image object from the Quartz image
-    UIImage *image = [UIImage imageWithCGImage:quartzImage];
-    
-    // Release the Quartz image
-    CGImageRelease(quartzImage);
-    
-    return (image);
+    return quartzImage;
 }
 
 @end

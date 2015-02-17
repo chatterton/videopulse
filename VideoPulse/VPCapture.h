@@ -10,6 +10,6 @@
 
 @interface VPCapture : AVCaptureVideoDataOutput <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property UIImage *lastCapturedImage;
+@property CGImageRef lastCapturedImage;
 
 @end
