@@ -11,6 +11,7 @@
 @implementation VPStreamProcessor {
     CIDetector *detector;
     CIContext *ciContext;
+    CIFilter *reduceFilter;
 }
 
 const float FACE_CROP_FACTOR = 0.5;
@@ -23,13 +24,16 @@ const float FACE_CROP_FACTOR = 0.5;
         detector =[CIDetector detectorOfType:CIDetectorTypeFace
                                      context:ciContext
                                      options:nil];
+
+        reduceFilter = [CIFilter filterWithName:@"CIAreaAverage"];
+        [reduceFilter setDefaults];
     }
     return self;
 }
 
-- (CGImageRef)getFaceFromFrame:(CIImage *)frame {
+- (CIImage *)getFaceFromFrame:(CIImage *)frame {
     NSArray *faceArray = [detector featuresInImage:frame options:nil];
-    CGImageRef ref = nil;
+    CIImage *image = nil;
 
     if (faceArray.count > 0) {
         CIFeature *face = faceArray[0];
@@ -37,25 +41,32 @@ const float FACE_CROP_FACTOR = 0.5;
         float croppedHeight = face.bounds.size.height * FACE_CROP_FACTOR;
         float croppedX = face.bounds.origin.x + ((face.bounds.size.width - croppedWidth) / 2.0);
         float croppedY = face.bounds.origin.y + ((face.bounds.size.height - croppedHeight) / 2.0);
-        CIImage *faceImage = [frame imageByCroppingToRect:CGRectMake(croppedX, croppedY, croppedWidth, croppedHeight)];
+        image = [frame imageByCroppingToRect:CGRectMake(croppedX, croppedY, croppedWidth, croppedHeight)];
         NSLog(@"face of size %i, %i located at %i, %i", (int)croppedWidth, (int)croppedHeight, (int)croppedX, (int)croppedY);
-        ref = [ciContext createCGImage:faceImage fromRect:[frame extent]];
     } else {
         NSLog(@"no face detected");
     }
 
-    return ref;
+    return image;
+}
+
+- (CIImage *)getAverageFromFace:(CIImage *)faceImage {
+    [reduceFilter setValue:faceImage forKey: @"inputImage"];
+    return [reduceFilter valueForKey: @"outputImage"];
 }
 
 - (void)process:(CGImageRef)image {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
 
-    CGImageRef processed = [self getFaceFromFrame:[CIImage imageWithCGImage:image]];
+    CIImage *frame = [CIImage imageWithCGImage:image];
+    CIImage *processed = [self getFaceFromFrame:frame];
 
     if (processed) {
+        CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
-        self.lastProcessedImage = processed;
+        self.lastProcessedImage = ref;
+        self.lastProcessedAverage = [UIImage imageWithCIImage:[self getAverageFromFace:processed]];
     }
 
 }
