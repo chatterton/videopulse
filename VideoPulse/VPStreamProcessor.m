@@ -11,8 +11,6 @@
 @implementation VPStreamProcessor {
     CIDetector *detector;
     CIContext *ciContext;
-    CIFilter *radialFilter;
-    CIFilter *maskFilter;
 }
 
 -(id)init {
@@ -23,44 +21,23 @@
         detector =[CIDetector detectorOfType:CIDetectorTypeFace
                                      context:ciContext
                                      options:nil];
-
-        radialFilter = [CIFilter filterWithName:@"CIRadialGradient"];
-        [radialFilter setDefaults];
-        CIColor *alphaOne = [CIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-        CIColor *alphaZero = [CIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-        [radialFilter setValue:alphaOne forKey:@"inputColor0"];
-        [radialFilter setValue:alphaZero forKey:@"inputColor1"];
-
-        maskFilter = [CIFilter filterWithName:@"CISourceInCompositing"];
     }
     return self;
 }
 
-- (CGImageRef)getFaceFromFrame:(CIImage *)ciImage {
-    NSArray *faceArray = [detector featuresInImage:ciImage options:nil];
+- (CGImageRef)getFaceFromFrame:(CIImage *)frame {
+    NSArray *faceArray = [detector featuresInImage:frame options:nil];
+    CGImageRef ref = nil;
 
     if (faceArray.count > 0) {
         CIFeature *face = faceArray[0];
-        CGFloat xCenter = face.bounds.origin.x + face.bounds.size.width/2.0;
-        CGFloat yCenter = face.bounds.origin.y + face.bounds.size.height/2.0;
-        CIVector *center = [CIVector vectorWithX:xCenter Y:yCenter];
-        CGFloat radius = face.bounds.size.width/2.8;
-
-        NSLog(@"face at %f, %f with radius %f", xCenter, yCenter, radius);
-
-        [radialFilter setValue:center forKey:@"inputCenter"];
-        [radialFilter setValue:[NSNumber numberWithFloat:radius] forKey:@"inputRadius0"];
-        [radialFilter setValue:[NSNumber numberWithFloat:radius] forKey:@"inputRadius1"];
-
-        [maskFilter setValue:ciImage forKey:@"inputImage"];
-        [maskFilter setValue:[radialFilter outputImage] forKey:@"inputBackgroundImage"];
-
-        return [ciContext createCGImage:[maskFilter outputImage]
-                               fromRect:[ciImage extent]];
+        CIImage *faceImage = [frame imageByCroppingToRect:CGRectMake(face.bounds.origin.x, face.bounds.origin.y, face.bounds.size.width, face.bounds.size.height)];
+        ref = [ciContext createCGImage:faceImage fromRect:[frame extent]];
     } else {
         NSLog(@"no face detected");
     }
-    return nil;
+
+    return ref;
 }
 
 - (void)process:(CGImageRef)image {
