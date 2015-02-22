@@ -12,8 +12,8 @@
 
 @interface VPStreamProcessor : NSObject
 
-- (void)process:(CGImageRef)image;
+@property CGImageRef lastProcessedImage;
 
-- (CGImageRef)lastProcessedImage;
+- (void)process:(CGImageRef)image;
 
 @end

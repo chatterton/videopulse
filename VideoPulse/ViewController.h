@@ -11,8 +11,12 @@
 @class VPPlayerLayer;
 
 @interface ViewController : UIViewController {
-    
+    IBOutlet VPPlayerLayer *playerView;
+    IBOutlet UIImageView *videoFrameOutput;
+    IBOutlet UIImageView *cameraFrame;
+    IBOutlet UIImageView *processedCameraFrameOutput;
 }
+
 
 @end
 

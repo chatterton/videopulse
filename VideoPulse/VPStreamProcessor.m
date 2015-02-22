@@ -9,7 +9,6 @@
 #import "VPStreamProcessor.h"
 
 @implementation VPStreamProcessor {
-    CGImageRef lastImage;
     CIDetector *detector;
     CIContext *ciContext;
     CIFilter *radialFilter;
@@ -71,14 +70,10 @@
     CGImageRef processed = [self getFaceFromFrame:[CIImage imageWithCGImage:image]];
 
     if (processed) {
-        CGImageRelease(lastImage);
-        lastImage = processed;
+        CGImageRelease(self.lastProcessedImage);
+        self.lastProcessedImage = processed;
     }
 
-}
-
-- (CGImageRef)lastProcessedImage {
-    return lastImage;
 }
 
 @end

@@ -8,6 +8,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface VPCapture : AVCaptureVideoDataOutput
+@interface VPCapture : AVCaptureVideoDataOutput <AVCaptureVideoDataOutputSampleBufferDelegate>
+
+typedef void (^ImageCallback)(CGImageRef image);
+
+@property CGImageRef lastCapturedImage;
+
+- (void)startWithCallback:(ImageCallback)callback;
 
 @end

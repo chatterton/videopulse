@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,11 +14,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLV-Me-PNg">
-                                <rect key="frame" x="364" y="285" width="73" height="30"/>
+                                <rect key="frame" x="94" y="285" width="73" height="30"/>
                                 <state key="normal" title="Play Video">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -25,28 +26,84 @@
                                     <action selector="playVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ual-e3-eSr"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wq-Zj-GPP" customClass="VPPlayerLayer">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3wq-Zj-GPP" customClass="VPPlayerLayer">
                                 <rect key="frame" x="94" y="68" width="302" height="209"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="302" id="8UD-qT-Kva"/>
+                                    <constraint firstAttribute="height" constant="209" id="JtJ-FC-y33"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ib-ju-CcA" customClass="UIImageView">
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="8ib-ju-CcA" customClass="UIImageView">
                                 <rect key="frame" x="404" y="68" width="302" height="209"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="302" id="KOE-C7-bzJ"/>
+                                    <constraint firstAttribute="height" constant="209" id="dej-5B-rdD"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="CD0-EQ-JXH" customClass="UIImageView">
+                                <rect key="frame" x="94" y="353" width="302" height="209"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="209" id="7i8-E1-44K"/>
+                                    <constraint firstAttribute="width" constant="302" id="Kbo-wC-Ghx"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irP-SN-hB4">
+                                <rect key="frame" x="94" y="570" width="113" height="30"/>
+                                <state key="normal" title="Capture Camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startCameraCapture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OvI-cs-Ybr"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VAO-3q-ArD" customClass="UIImageView">
+                                <rect key="frame" x="404" y="353" width="302" height="209"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="209" id="nZ8-9k-m53"/>
+                                    <constraint firstAttribute="width" constant="302" id="wao-qM-tVd"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="Vcg-Hn-Ia2"/>
-                            <constraint firstAttribute="centerY" secondItem="SLV-Me-PNg" secondAttribute="centerY" id="m7p-nB-P9L"/>
-                            <constraint firstItem="SLV-Me-PNg" firstAttribute="top" secondItem="3wq-Zj-GPP" secondAttribute="bottom" constant="8" id="r6l-4y-PEF"/>
-                            <constraint firstAttribute="centerX" secondItem="SLV-Me-PNg" secondAttribute="centerX" id="u3Y-qA-ADn"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="78" id="3nz-8p-yni"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="top" secondItem="SLV-Me-PNg" secondAttribute="bottom" constant="38" id="4Al-GV-rbJ"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="78" id="83K-x9-Hto"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="centerX" secondItem="CD0-EQ-JXH" secondAttribute="centerX" id="8aw-yr-Sfd"/>
+                            <constraint firstItem="SLV-Me-PNg" firstAttribute="leading" secondItem="3wq-Zj-GPP" secondAttribute="leading" id="AaR-p5-oBF"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="78" id="FnB-2B-wfp"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="48" id="GxN-fL-iAN"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="top" secondItem="8ib-ju-CcA" secondAttribute="top" id="V0j-CL-VdT"/>
+                            <constraint firstItem="irP-SN-hB4" firstAttribute="top" secondItem="CD0-EQ-JXH" secondAttribute="bottom" constant="8" id="XPC-bZ-kx8"/>
+                            <constraint firstItem="VAO-3q-ArD" firstAttribute="leading" secondItem="CD0-EQ-JXH" secondAttribute="trailing" constant="8" id="aKa-Bc-A5O"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="leading" secondItem="irP-SN-hB4" secondAttribute="leading" id="fX3-1e-1eG"/>
+                            <constraint firstItem="SLV-Me-PNg" firstAttribute="top" secondItem="3wq-Zj-GPP" secondAttribute="bottom" constant="8" id="hak-As-nFk"/>
+                            <constraint firstItem="3wq-Zj-GPP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="48" id="pSC-83-21q"/>
+                            <constraint firstItem="8ib-ju-CcA" firstAttribute="leading" secondItem="3wq-Zj-GPP" secondAttribute="trailing" constant="8" id="piJ-7I-yOd"/>
+                            <constraint firstItem="VAO-3q-ArD" firstAttribute="top" secondItem="8ib-ju-CcA" secondAttribute="bottom" constant="76" id="qJR-iS-5dT"/>
+                            <constraint firstItem="CD0-EQ-JXH" firstAttribute="top" secondItem="SLV-Me-PNg" secondAttribute="bottom" constant="38" id="s5g-hR-m1E"/>
+                            <constraint firstItem="irP-SN-hB4" firstAttribute="top" secondItem="CD0-EQ-JXH" secondAttribute="bottom" constant="8" symbolic="YES" id="tgf-XG-YPh"/>
+                            <constraint firstItem="irP-SN-hB4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="78" id="upo-6E-emZ"/>
+                            <constraint firstItem="SLV-Me-PNg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="78" id="xGP-4r-Ibo"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="tgf-XG-YPh"/>
+                                <exclude reference="upo-6E-emZ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="800" height="600"/>
+                    <size key="freeformSize" width="800" height="800"/>
                     <connections>
-                        <outlet property="output" destination="8ib-ju-CcA" id="n7I-9f-GcN"/>
+                        <outlet property="cameraFrame" destination="CD0-EQ-JXH" id="1wa-Ip-sjY"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
+                        <outlet property="processedCameraFrameOutput" destination="VAO-3q-ArD" id="0YI-fS-K6J"/>
+                        <outlet property="videoFrameOutput" destination="8ib-ju-CcA" id="H2x-91-xwV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

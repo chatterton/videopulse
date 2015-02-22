@@ -12,13 +12,14 @@
 #import "VPPlayerLayer.h"
 #import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
+#import "VPCapture.h"
 
 @interface ViewController () {
     AVPlayer *player;
-    IBOutlet VPPlayerLayer *playerView;
-    IBOutlet UIImageView *output;
-    VPStreamProcessor *processor;
+    VPStreamProcessor *videoProcessor;
+    VPStreamProcessor *cameraProcessor;
     VPVideoDivider *divider;
+    VPCapture *capture;
 }
 @end
 
@@ -27,7 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    processor = [[VPStreamProcessor alloc] init];
+    videoProcessor = [[VPStreamProcessor alloc] init];
+    cameraProcessor = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];
@@ -37,6 +39,8 @@
     divider = [[VPVideoDivider alloc] init];
     divider.asset = asset;
     [divider setDesiredFPS:6.0];
+
+    capture = [[VPCapture alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,15 +50,25 @@
 -(IBAction)playVideo:(id) sender {
     [player play];
     [divider startWithCallback:^(CGImageRef image) {
-        [self processImageCallback:image];
+        [self processVideoFrameCallback:image];
     }];
 }
 
-- (void)processImageCallback:(CGImageRef) image {
-    [processor process:image];
-    [output setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
+- (void)processVideoFrameCallback:(CGImageRef) image {
+    [videoProcessor process:image];
+    [videoFrameOutput setImage:[UIImage imageWithCGImage:[videoProcessor lastProcessedImage]]];
 }
 
+-(IBAction)startCameraCapture:(id) sender {
+    [capture startWithCallback:^(CGImageRef image) {
+        [self processCameraFrameCallback:image];
+    }];
+}
 
+- (void)processCameraFrameCallback:(CGImageRef) image {
+    [cameraFrame setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
+    [cameraProcessor process:[capture lastCapturedImage]];
+    [processedCameraFrameOutput setImage:[UIImage imageWithCGImage:[cameraProcessor lastProcessedImage]]];
+}
 
 @end
