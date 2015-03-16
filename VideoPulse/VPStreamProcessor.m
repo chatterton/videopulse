@@ -11,7 +11,7 @@
 @implementation VPStreamProcessor {
     CIDetector *detector;
     CIContext *ciContext;
-    CIFilter *reduceFilter;
+//    CIFilter *histoFilter;
 }
 
 const float FACE_CROP_FACTOR = 0.5;
@@ -25,8 +25,11 @@ const float FACE_CROP_FACTOR = 0.5;
                                      context:ciContext
                                      options:nil];
 
-        reduceFilter = [CIFilter filterWithName:@"CIAreaAverage"];
-        [reduceFilter setDefaults];
+        /*
+        histoFilter = [CIFilter filterWithName:@"CIAreaHistogram"];
+        [histoFilter setValue:@1 forKey:@"inputCount"];
+        [histoFilter setValue:@1.0 forKey:@"inputScale"];
+         */
     }
     return self;
 }
@@ -51,8 +54,12 @@ const float FACE_CROP_FACTOR = 0.5;
 }
 
 - (CIImage *)getAverageFromFace:(CIImage *)faceImage {
-    [reduceFilter setValue:faceImage forKey: @"inputImage"];
-    return [reduceFilter valueForKey: @"outputImage"];
+
+    /*
+    [histoFilter setValue:faceImage forKey: @"inputImage"];
+    return [histoFilter valueForKey: @"outputImage"];
+     */
+    return nil;
 }
 
 - (void)process:(CGImageRef)image {
@@ -66,7 +73,23 @@ const float FACE_CROP_FACTOR = 0.5;
         CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
         self.lastProcessedImage = ref;
-        self.lastProcessedAverage = [UIImage imageWithCIImage:[self getAverageFromFace:processed]];
+
+        /*
+    //    self.lastProcessedAverage = [UIImage imageWithCIImage:[self getAverageFromFace:processed]];
+        CIImage *ciHisto = [self getAverageFromFace:processed];
+        CGImageRef cgHisto = [ciContext createCGImage:ciHisto fromRect:ciHisto.extent];
+
+        CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(cgHisto));
+        UInt8 * buf = (UInt8 *) CFDataGetBytePtr(rawData);
+        long length = CFDataGetLength(rawData);
+        for (int i = 0; i < length; i += 4) {
+            float r = buf[i];
+            float g = buf[i+1];
+            float b = buf[i+2];
+            NSLog(@"Got one %f %f %f", r, g, b);
+        }
+
+         */
     }
 
 }
