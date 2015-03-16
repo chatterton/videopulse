@@ -57,6 +57,7 @@
 - (void)processVideoFrameCallback:(CGImageRef) image {
     [videoProcessor process:image];
     [videoFrameOutput setImage:[UIImage imageWithCGImage:[videoProcessor lastProcessedImage]]];
+    [averageColorView setBackgroundColor:[videoProcessor lastAverageColor]];
 }
 
 -(IBAction)startCameraCapture:(id) sender {
@@ -69,6 +70,7 @@
     [cameraFrame setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
     [cameraProcessor process:[capture lastCapturedImage]];
     [processedCameraFrameOutput setImage:[UIImage imageWithCGImage:[cameraProcessor lastProcessedImage]]];
+    [averageColorView setBackgroundColor:[cameraProcessor lastAverageColor]];
 }
 
 @end
