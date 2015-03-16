@@ -16,6 +16,7 @@
 @implementation VPCapture {
     AVCaptureSession *session;
     ImageCallback imageCallback;
+    bool stopping;
 }
 
 // Create and configure a capture session and start it running
@@ -115,18 +116,28 @@
 }
 
 - (void)startWithCallback:(ImageCallback)callback {
+    stopping = false;
     imageCallback = callback;
     [self setupCaptureSession];
     [self snapshotImage];
 }
 
+- (void)stop {
+    stopping = true;
+}
+
+
 - (void)snapshotImage {
     imageCallback(self.lastCapturedImage);
-    [NSTimer scheduledTimerWithTimeInterval:0.1
-                                     target:self
-                                   selector:@selector(snapshotImage)
-                                   userInfo:nil
-                                    repeats:NO];
+    if (!stopping) {
+        [NSTimer scheduledTimerWithTimeInterval:0.1
+                                         target:self
+                                       selector:@selector(snapshotImage)
+                                       userInfo:nil
+                                        repeats:NO];
+    } else {
+        stopping = false;
+    }
 }
 
 @end

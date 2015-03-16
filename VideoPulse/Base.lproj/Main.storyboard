@@ -68,12 +68,21 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="opU-48-yi7">
-                                <rect key="frame" x="722" y="255" width="60" height="60"/>
+                                <rect key="frame" x="722" y="217" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.92077105978260865" green="0.62823347278176667" blue="0.60191074907203901" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INb-Nm-Bbk">
+                                <rect key="frame" x="814" y="232" width="46" height="30"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kI5-Dn-UDY"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOT-sw-TAe">
-                                <rect key="frame" x="722" y="323" width="159" height="149"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="722" y="285" width="159" height="277"/>
+                                <color key="backgroundColor" red="0.95140540081521741" green="0.95140540081521741" blue="0.95140540081521741" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

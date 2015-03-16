@@ -52,7 +52,7 @@
     [percentages setText:new];
 }
 
--(IBAction)playVideo:(id) sender {
+- (IBAction)playVideo:(id) sender {
     [player play];
     [divider startWithCallback:^(CGImageRef image) {
         [self processVideoFrameCallback:image];
@@ -63,7 +63,7 @@
     [self process:image toOutput:videoFrameOutput];
 }
 
--(IBAction)startCameraCapture:(id) sender {
+- (IBAction)startCameraCapture:(id) sender {
     [capture startWithCallback:^(CGImageRef image) {
         [self processCameraFrameCallback:image];
     }];
@@ -72,6 +72,21 @@
 - (void)processCameraFrameCallback:(CGImageRef) image {
     [cameraFrame setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
     [self process:[capture lastCapturedImage] toOutput:processedCameraFrameOutput];
+}
+
+- (IBAction)reset:(id) sender {
+    [divider stop];
+    [capture stop];
+    [player pause];
+
+    // FIXME: this is the wrong way to do this. but half second delay should allow the last frame
+    // to get processed and then blank it.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [cameraFrame setImage:nil];
+        [processedCameraFrameOutput setImage:nil];
+        [videoFrameOutput setImage:nil];
+        percentages.text = @"";
+    });
 }
 
 @end

@@ -15,5 +15,6 @@ typedef void (^ImageCallback)(CGImageRef image);
 @property CGImageRef lastCapturedImage;
 
 - (void)startWithCallback:(ImageCallback)callback;
+- (void)stop;
 
 @end

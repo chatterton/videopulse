@@ -16,9 +16,11 @@
     float secondsIn;
     float durationSeconds;
     float interval;
+    bool stopping;
 }
 
 - (void)startWithCallback:(ImageCallback)callback {
+    stopping = false;
     imageCallback = callback;
 
     generator = [[AVAssetImageGenerator alloc] initWithAsset:self.asset];
@@ -33,6 +35,10 @@
     interval = 1.0 / desiredFPS;
 }
 
+- (void)stop {
+    stopping = true;
+}
+
 - (void)snapshotImage {
 
     CMTime time = CMTimeMake(secondsIn, 1);
@@ -41,12 +47,15 @@
     CGImageRelease(ref);
 
     secondsIn += interval;
-    if (secondsIn < durationSeconds) {
+    if (secondsIn < durationSeconds && !stopping) {
         [NSTimer scheduledTimerWithTimeInterval:interval
                                          target:self
                                        selector:@selector(snapshotImage)
                                        userInfo:nil
                                         repeats:NO];
+    }
+    if (stopping) {
+        stopping = false;
     }
 }
 

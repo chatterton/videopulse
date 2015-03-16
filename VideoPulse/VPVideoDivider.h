@@ -18,6 +18,7 @@ typedef void (^ImageCallback)(CGImageRef image);
 
 - (void)startWithCallback:(ImageCallback)callback;
 - (void)setDesiredFPS:(float)desiredFPS;
+- (void)stop;
 
 @end
 
