@@ -15,6 +15,8 @@
     IBOutlet UIImageView *videoFrameOutput;
     IBOutlet UIImageView *cameraFrame;
     IBOutlet UIImageView *processedCameraFrameOutput;
+    IBOutlet UIView *averageColorView;
+    IBOutlet UITextView *percentages;
 }
 
 

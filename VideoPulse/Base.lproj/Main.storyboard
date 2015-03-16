@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLV-Me-PNg">
@@ -67,6 +67,16 @@
                                     <constraint firstAttribute="width" constant="302" id="wao-qM-tVd"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="opU-48-yi7">
+                                <rect key="frame" x="722" y="255" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.92077105978260865" green="0.62823347278176667" blue="0.60191074907203901" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOT-sw-TAe">
+                                <rect key="frame" x="722" y="323" width="159" height="149"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,9 +108,11 @@
                         </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="800" height="800"/>
+                    <size key="freeformSize" width="1200" height="800"/>
                     <connections>
+                        <outlet property="averageColorView" destination="opU-48-yi7" id="iRT-jT-bNw"/>
                         <outlet property="cameraFrame" destination="CD0-EQ-JXH" id="1wa-Ip-sjY"/>
+                        <outlet property="percentages" destination="WOT-sw-TAe" id="fRq-JY-5bD"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
                         <outlet property="processedCameraFrameOutput" destination="VAO-3q-ArD" id="0YI-fS-K6J"/>
                         <outlet property="videoFrameOutput" destination="8ib-ju-CcA" id="H2x-91-xwV"/>

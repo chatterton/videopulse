@@ -11,9 +11,9 @@
 @implementation VPStreamProcessor {
     CIDetector *detector;
     CIContext *ciContext;
-    CIFilter *radialFilter;
-    CIFilter *maskFilter;
 }
+
+const float FACE_CROP_FACTOR = 0.5;
 
 -(id)init {
     if ( self = [super init] ) {
@@ -23,55 +23,71 @@
         detector =[CIDetector detectorOfType:CIDetectorTypeFace
                                      context:ciContext
                                      options:nil];
-
-        radialFilter = [CIFilter filterWithName:@"CIRadialGradient"];
-        [radialFilter setDefaults];
-        CIColor *alphaOne = [CIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-        CIColor *alphaZero = [CIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-        [radialFilter setValue:alphaOne forKey:@"inputColor0"];
-        [radialFilter setValue:alphaZero forKey:@"inputColor1"];
-
-        maskFilter = [CIFilter filterWithName:@"CISourceInCompositing"];
     }
     return self;
 }
 
-- (CGImageRef)getFaceFromFrame:(CIImage *)ciImage {
-    NSArray *faceArray = [detector featuresInImage:ciImage options:nil];
+- (CIImage *)getFaceFromFrame:(CIImage *)frame {
+    NSArray *faceArray = [detector featuresInImage:frame options:nil];
+    CIImage *image = nil;
 
     if (faceArray.count > 0) {
         CIFeature *face = faceArray[0];
-        CGFloat xCenter = face.bounds.origin.x + face.bounds.size.width/2.0;
-        CGFloat yCenter = face.bounds.origin.y + face.bounds.size.height/2.0;
-        CIVector *center = [CIVector vectorWithX:xCenter Y:yCenter];
-        CGFloat radius = face.bounds.size.width/2.8;
-
-        NSLog(@"face at %f, %f with radius %f", xCenter, yCenter, radius);
-
-        [radialFilter setValue:center forKey:@"inputCenter"];
-        [radialFilter setValue:[NSNumber numberWithFloat:radius] forKey:@"inputRadius0"];
-        [radialFilter setValue:[NSNumber numberWithFloat:radius] forKey:@"inputRadius1"];
-
-        [maskFilter setValue:ciImage forKey:@"inputImage"];
-        [maskFilter setValue:[radialFilter outputImage] forKey:@"inputBackgroundImage"];
-
-        return [ciContext createCGImage:[maskFilter outputImage]
-                               fromRect:[ciImage extent]];
+        float croppedWidth = face.bounds.size.width * FACE_CROP_FACTOR;
+        float croppedHeight = face.bounds.size.height * FACE_CROP_FACTOR;
+        float croppedX = face.bounds.origin.x + ((face.bounds.size.width - croppedWidth) / 2.0);
+        float croppedY = face.bounds.origin.y + ((face.bounds.size.height - croppedHeight) / 2.0);
+        image = [frame imageByCroppingToRect:CGRectMake(croppedX, croppedY, croppedWidth, croppedHeight)];
+        NSLog(@"face of size %i, %i located at %i, %i", (int)croppedWidth, (int)croppedHeight, (int)croppedX, (int)croppedY);
     } else {
         NSLog(@"no face detected");
     }
-    return nil;
+
+    return image;
+}
+
+- (void)updateOutputsFromFace:(CGImageRef)faceImage {
+    CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(faceImage));
+    UInt8 *buf = (UInt8 *) CFDataGetBytePtr(rawData);
+    long length = CFDataGetLength(rawData);
+    float rTotal = 0;
+    float gTotal = 0;
+    float bTotal = 0;
+    int foundPixels = 0;
+    for (int i = 0; i < length; i += 4) {
+        int r = buf[i];
+        int g = buf[i+1];
+        int b = buf[i+2];
+        int a = buf[i+3];
+        if (a == 255) {
+            rTotal += r;
+            gTotal += g;
+            bTotal += b;
+            foundPixels++;
+        }
+    }
+    float rAvg = rTotal / foundPixels;
+    float gAvg = gTotal / foundPixels;
+    float bAvg = bTotal / foundPixels;
+    self.lastAverageColor = [UIColor colorWithRed:(rAvg / 255.0)
+                                            green:(gAvg / 255.0)
+                                             blue:(bAvg / 255.0)
+                                            alpha:1.0];
+    self.lastRedPercent = rAvg / (rAvg + gAvg + bAvg);
 }
 
 - (void)process:(CGImageRef)image {
     NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
     NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
 
-    CGImageRef processed = [self getFaceFromFrame:[CIImage imageWithCGImage:image]];
+    CIImage *frame = [CIImage imageWithCGImage:image];
+    CIImage *processed = [self getFaceFromFrame:frame];
 
     if (processed) {
+        CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
-        self.lastProcessedImage = processed;
+        self.lastProcessedImage = ref;
+        [self updateOutputsFromFace:ref];
     }
 
 }
