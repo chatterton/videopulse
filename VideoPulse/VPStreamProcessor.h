@@ -13,7 +13,7 @@
 @interface VPStreamProcessor : NSObject
 
 @property CGImageRef lastProcessedImage;
-@property UIImage *lastProcessedAverage;
+@property UIColor *lastAverageColor;
 
 - (void)process:(CGImageRef)image;
 

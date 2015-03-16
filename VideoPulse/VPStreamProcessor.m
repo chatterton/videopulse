@@ -11,7 +11,6 @@
 @implementation VPStreamProcessor {
     CIDetector *detector;
     CIContext *ciContext;
-//    CIFilter *histoFilter;
 }
 
 const float FACE_CROP_FACTOR = 0.5;
@@ -24,12 +23,6 @@ const float FACE_CROP_FACTOR = 0.5;
         detector =[CIDetector detectorOfType:CIDetectorTypeFace
                                      context:ciContext
                                      options:nil];
-
-        /*
-        histoFilter = [CIFilter filterWithName:@"CIAreaHistogram"];
-        [histoFilter setValue:@1 forKey:@"inputCount"];
-        [histoFilter setValue:@1.0 forKey:@"inputScale"];
-         */
     }
     return self;
 }
@@ -53,13 +46,33 @@ const float FACE_CROP_FACTOR = 0.5;
     return image;
 }
 
-- (CIImage *)getAverageFromFace:(CIImage *)faceImage {
-
-    /*
-    [histoFilter setValue:faceImage forKey: @"inputImage"];
-    return [histoFilter valueForKey: @"outputImage"];
-     */
-    return nil;
+- (UIColor *)averageColorFromFace:(CGImageRef)faceImage {
+    CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(faceImage));
+    UInt8 *buf = (UInt8 *) CFDataGetBytePtr(rawData);
+    long length = CFDataGetLength(rawData);
+    float rTotal = 0;
+    float gTotal = 0;
+    float bTotal = 0;
+    int foundPixels = 0;
+    for (int i = 0; i < length; i += 4) {
+        int r = buf[i];
+        int g = buf[i+1];
+        int b = buf[i+2];
+        int a = buf[i+3];
+        if (a == 255) {
+            rTotal += r;
+            gTotal += g;
+            bTotal += b;
+            foundPixels++;
+        }
+    }
+    float rAvg = rTotal / foundPixels;
+    float gAvg = gTotal / foundPixels;
+    float bAvg = bTotal / foundPixels;
+    return [UIColor colorWithRed:(rAvg / 255.0)
+                           green:(gAvg / 255.0)
+                            blue:(bAvg / 255.0)
+                           alpha:1.0];
 }
 
 - (void)process:(CGImageRef)image {
@@ -73,23 +86,7 @@ const float FACE_CROP_FACTOR = 0.5;
         CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
         self.lastProcessedImage = ref;
-
-        /*
-    //    self.lastProcessedAverage = [UIImage imageWithCIImage:[self getAverageFromFace:processed]];
-        CIImage *ciHisto = [self getAverageFromFace:processed];
-        CGImageRef cgHisto = [ciContext createCGImage:ciHisto fromRect:ciHisto.extent];
-
-        CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(cgHisto));
-        UInt8 * buf = (UInt8 *) CFDataGetBytePtr(rawData);
-        long length = CFDataGetLength(rawData);
-        for (int i = 0; i < length; i += 4) {
-            float r = buf[i];
-            float g = buf[i+1];
-            float b = buf[i+2];
-            NSLog(@"Got one %f %f %f", r, g, b);
-        }
-
-         */
+        self.lastAverageColor = [self averageColorFromFace:ref];
     }
 
 }
