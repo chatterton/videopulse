@@ -16,8 +16,7 @@
 
 @interface ViewController () {
     AVPlayer *player;
-    VPStreamProcessor *videoProcessor;
-    VPStreamProcessor *cameraProcessor;
+    VPStreamProcessor *processor;
     VPVideoDivider *divider;
     VPCapture *capture;
 }
@@ -28,8 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    videoProcessor = [[VPStreamProcessor alloc] init];
-    cameraProcessor = [[VPStreamProcessor alloc] init];
+    processor = [[VPStreamProcessor alloc] init];
 
     NSURL *url = [[NSBundle mainBundle] URLForResource: @"video" withExtension:@"mov"];
     AVAsset *asset = [AVAsset assetWithURL:url];
@@ -43,8 +41,10 @@
     capture = [[VPCapture alloc] init];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void)process:(CGImageRef)image toOutput:(UIImageView *)imageView {
+    [processor process:image];
+    [imageView setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
+    [averageColorView setBackgroundColor:[processor lastAverageColor]];
 }
 
 -(IBAction)playVideo:(id) sender {
@@ -55,9 +55,7 @@
 }
 
 - (void)processVideoFrameCallback:(CGImageRef) image {
-    [videoProcessor process:image];
-    [videoFrameOutput setImage:[UIImage imageWithCGImage:[videoProcessor lastProcessedImage]]];
-    [averageColorView setBackgroundColor:[videoProcessor lastAverageColor]];
+    [self process:image toOutput:videoFrameOutput];
 }
 
 -(IBAction)startCameraCapture:(id) sender {
@@ -68,9 +66,7 @@
 
 - (void)processCameraFrameCallback:(CGImageRef) image {
     [cameraFrame setImage:[UIImage imageWithCGImage:[capture lastCapturedImage]]];
-    [cameraProcessor process:[capture lastCapturedImage]];
-    [processedCameraFrameOutput setImage:[UIImage imageWithCGImage:[cameraProcessor lastProcessedImage]]];
-    [averageColorView setBackgroundColor:[cameraProcessor lastAverageColor]];
+    [self process:[capture lastCapturedImage] toOutput:processedCameraFrameOutput];
 }
 
 @end
