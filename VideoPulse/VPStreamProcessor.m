@@ -46,7 +46,7 @@ const float FACE_CROP_FACTOR = 0.5;
     return image;
 }
 
-- (UIColor *)averageColorFromFace:(CGImageRef)faceImage {
+- (void)updateOutputsFromFace:(CGImageRef)faceImage {
     CFDataRef rawData = CGDataProviderCopyData(CGImageGetDataProvider(faceImage));
     UInt8 *buf = (UInt8 *) CFDataGetBytePtr(rawData);
     long length = CFDataGetLength(rawData);
@@ -69,10 +69,11 @@ const float FACE_CROP_FACTOR = 0.5;
     float rAvg = rTotal / foundPixels;
     float gAvg = gTotal / foundPixels;
     float bAvg = bTotal / foundPixels;
-    return [UIColor colorWithRed:(rAvg / 255.0)
-                           green:(gAvg / 255.0)
-                            blue:(bAvg / 255.0)
-                           alpha:1.0];
+    self.lastAverageColor = [UIColor colorWithRed:(rAvg / 255.0)
+                                            green:(gAvg / 255.0)
+                                             blue:(bAvg / 255.0)
+                                            alpha:1.0];
+    self.lastRedPercent = rAvg / (rAvg + gAvg + bAvg);
 }
 
 - (void)process:(CGImageRef)image {
@@ -86,7 +87,7 @@ const float FACE_CROP_FACTOR = 0.5;
         CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
         self.lastProcessedImage = ref;
-        self.lastAverageColor = [self averageColorFromFace:ref];
+        [self updateOutputsFromFace:ref];
     }
 
 }

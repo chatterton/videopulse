@@ -39,12 +39,17 @@
     [divider setDesiredFPS:6.0];
 
     capture = [[VPCapture alloc] init];
+
+    percentages.text = @"";
 }
 
 - (void)process:(CGImageRef)image toOutput:(UIImageView *)imageView {
     [processor process:image];
     [imageView setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
     [averageColorView setBackgroundColor:[processor lastAverageColor]];
+
+    NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
+    [percentages setText:new];
 }
 
 -(IBAction)playVideo:(id) sender {
