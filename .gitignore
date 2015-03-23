@@ -23,3 +23,5 @@ xcuserdata
 # Documentation
 documentation/*
 
+# cocoapods
+Pods/
