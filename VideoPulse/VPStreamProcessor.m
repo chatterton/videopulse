@@ -38,9 +38,9 @@ const float FACE_CROP_FACTOR = 0.3;
         float croppedX = face.bounds.origin.x + ((face.bounds.size.width - croppedWidth) / 2.0);
         float croppedY = face.bounds.origin.y + ((face.bounds.size.height - croppedHeight) / 2.0);
         image = [frame imageByCroppingToRect:CGRectMake(croppedX, croppedY, croppedWidth, croppedHeight)];
-        NSLog(@"face of size %i, %i located at %i, %i", (int)croppedWidth, (int)croppedHeight, (int)croppedX, (int)croppedY);
+        //NSLog(@"face of size %i, %i located at %i, %i", (int)croppedWidth, (int)croppedHeight, (int)croppedX, (int)croppedY);
     } else {
-        NSLog(@"no face detected");
+        //NSLog(@"no face detected");
     }
 
     return image;
@@ -77,8 +77,8 @@ const float FACE_CROP_FACTOR = 0.3;
 }
 
 - (void)process:(CGImageRef)image {
-    NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
+    //NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
+    //NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
 
     CIImage *frame = [CIImage imageWithCGImage:image];
     CIImage *processed = [self getFaceFromFrame:frame];
