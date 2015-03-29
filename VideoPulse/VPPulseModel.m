@@ -35,27 +35,37 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
     }
 }
 
-- (NSArray *)render:(NSInteger)sampleCount {
+- (NSArray *)render:(int)sampleCount {
+    NSMutableArray *output = [NSMutableArray array];
+    for (int i = 0; i < sampleCount; i++) {
+        [output  insertObject:[NSNumber numberWithFloat:0.5] atIndex:0];
+    }
+
     // sanity check
     if ([timeBuffer count] < 2) {
-        return @[];
+        return output;
     }
 
     long bufferIndex = ([timeBuffer count] - 1); // last to first
     double firstTime = [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue];
     double lastTime = [(NSNumber *)[timeBuffer objectAtIndex:0] doubleValue];
     double tick = (lastTime - firstTime) / sampleCount;
-    float value = [(NSNumber *)[sampleBuffer objectAtIndex:bufferIndex] floatValue];
-    double time = firstTime;
+    float valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:bufferIndex] floatValue];
+    float valueNext = [(NSNumber *)[sampleBuffer objectAtIndex:(bufferIndex - 1)] floatValue];
+    double timeNow = firstTime;
+    double timeNext = [(NSNumber *)[timeBuffer objectAtIndex:(bufferIndex - 1)] doubleValue];
 
-    NSMutableArray *output = [NSMutableArray arrayWithCapacity:sampleCount];
-    for (int i = 0; i < sampleCount; i++) {
-        [output insertObject:[NSNumber numberWithFloat:value] atIndex:i];
-        time += tick;
-        while ((bufferIndex > 0) && (time > [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue])) {
+    //float output[sampleCount];
+
+    int i = sampleCount - 1;
+    while (i >= 0) {
+        [output replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:valueNow]];
+        timeNow += tick;
+        if ((bufferIndex > 0) && (timeNow > [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue])) {
+            valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:([sampleBuffer count] - 1 - bufferIndex)] floatValue];
             bufferIndex--;
         }
-        value = [(NSNumber *)[sampleBuffer objectAtIndex:([sampleBuffer count] - 1 - bufferIndex)] floatValue];
+        i--;
     }
 
     return output;
