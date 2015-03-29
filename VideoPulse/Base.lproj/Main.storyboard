@@ -86,6 +86,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yld-uB-OAT" customClass="JBLineChartView">
+                                <rect key="frame" x="94" y="608" width="612" height="76"/>
+                                <color key="backgroundColor" red="0.93414572010869568" green="0.93414572010869568" blue="0.93414572010869568" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -121,6 +125,7 @@
                     <connections>
                         <outlet property="averageColorView" destination="opU-48-yi7" id="iRT-jT-bNw"/>
                         <outlet property="cameraFrame" destination="CD0-EQ-JXH" id="1wa-Ip-sjY"/>
+                        <outlet property="lineChartView" destination="yld-uB-OAT" id="4PB-ft-9hw"/>
                         <outlet property="percentages" destination="WOT-sw-TAe" id="fRq-JY-5bD"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>
                         <outlet property="processedCameraFrameOutput" destination="VAO-3q-ArD" id="0YI-fS-K6J"/>

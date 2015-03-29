@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VPPlayerLayer;
+@class VPPlayerLayer, JBLineChartView;
 
 @interface ViewController : UIViewController {
     IBOutlet VPPlayerLayer *playerView;
@@ -17,6 +17,7 @@
     IBOutlet UIImageView *processedCameraFrameOutput;
     IBOutlet UIView *averageColorView;
     IBOutlet UITextView *percentages;
+    IBOutlet JBLineChartView *lineChartView;
 }
 
 

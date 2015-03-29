@@ -13,12 +13,14 @@
 #import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
 #import "VPCapture.h"
+#import "VPLineChartDataSource.h"
 
 @interface ViewController () {
     AVPlayer *player;
     VPStreamProcessor *processor;
     VPVideoDivider *divider;
     VPCapture *capture;
+    VPLineChartDataSource *lineChartSource;
 }
 @end
 
@@ -41,6 +43,11 @@
     capture = [[VPCapture alloc] init];
 
     percentages.text = @"";
+
+    lineChartSource = [[VPLineChartDataSource alloc] init];
+    lineChartView.dataSource = lineChartSource;
+    lineChartView.delegate = lineChartSource;
+    [lineChartView reloadData];
 }
 
 - (void)process:(CGImageRef)image toOutput:(UIImageView *)imageView {

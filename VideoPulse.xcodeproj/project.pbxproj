@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		44DB282CD56928C0B6B0AAD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4A0D7270FDB38B83CF45F5B /* libPods.a */; };
 		4844DB651A86C1B6001EE9DB /* VPVideoDivider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4844DB641A86C1B6001EE9DB /* VPVideoDivider.m */; };
+		48612F9B1AC78C7D00C9DCBD /* VPLineChartDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 48612F9A1AC78C7D00C9DCBD /* VPLineChartDataSource.m */; };
 		48E0C3DC1A7DB1AB00FE4545 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C3DB1A7DB1AB00FE4545 /* main.m */; };
 		48E0C3DF1A7DB1AB00FE4545 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C3DE1A7DB1AB00FE4545 /* AppDelegate.m */; };
 		48E0C3E21A7DB1AB00FE4545 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E0C3E11A7DB1AB00FE4545 /* ViewController.m */; };
@@ -38,6 +39,8 @@
 		21189C023D9A83A9472F8495 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4844DB631A86C1B6001EE9DB /* VPVideoDivider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPVideoDivider.h; sourceTree = "<group>"; };
 		4844DB641A86C1B6001EE9DB /* VPVideoDivider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPVideoDivider.m; sourceTree = "<group>"; };
+		48612F991AC78C7D00C9DCBD /* VPLineChartDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPLineChartDataSource.h; sourceTree = "<group>"; };
+		48612F9A1AC78C7D00C9DCBD /* VPLineChartDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPLineChartDataSource.m; sourceTree = "<group>"; };
 		48E0C3D61A7DB1AB00FE4545 /* VideoPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E0C3DA1A7DB1AB00FE4545 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48E0C3DB1A7DB1AB00FE4545 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 				48E0C40D1A7E1CC900FE4545 /* VPStreamProcessor.m */,
 				4844DB631A86C1B6001EE9DB /* VPVideoDivider.h */,
 				4844DB641A86C1B6001EE9DB /* VPVideoDivider.m */,
+				48612F991AC78C7D00C9DCBD /* VPLineChartDataSource.h */,
+				48612F9A1AC78C7D00C9DCBD /* VPLineChartDataSource.m */,
 				48E0C3E31A7DB1AB00FE4545 /* Main.storyboard */,
 				48E0C3E61A7DB1AB00FE4545 /* Images.xcassets */,
 				48E0C3E81A7DB1AB00FE4545 /* LaunchScreen.xib */,
@@ -319,6 +324,7 @@
 				4844DB651A86C1B6001EE9DB /* VPVideoDivider.m in Sources */,
 				48E0C3DF1A7DB1AB00FE4545 /* AppDelegate.m in Sources */,
 				48E0C4071A7DF3F000FE4545 /* VPPlayerLayer.m in Sources */,
+				48612F9B1AC78C7D00C9DCBD /* VPLineChartDataSource.m in Sources */,
 				48E0C3DC1A7DB1AB00FE4545 /* main.m in Sources */,
 				48E0C40B1A7E06F700FE4545 /* VPCapture.m in Sources */,
 			);
