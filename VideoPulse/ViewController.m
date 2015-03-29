@@ -47,7 +47,6 @@
     lineChartSource = [[VPLineChartDataSource alloc] init];
     lineChartView.dataSource = lineChartSource;
     lineChartView.delegate = lineChartSource;
-    [lineChartView reloadData];
 }
 
 - (void)process:(CGImageRef)image toOutput:(UIImageView *)imageView {
@@ -55,8 +54,13 @@
     [imageView setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
     [averageColorView setBackgroundColor:[processor lastAverageColor]];
 
-    NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
-    [percentages setText:new];
+    if ([processor lastRedPercent] > 0.0) {
+        NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
+        [percentages setText:new];
+
+        [lineChartSource addSample:[processor lastRedPercent]];
+        [lineChartView reloadData];
+    }
 }
 
 - (IBAction)playVideo:(id) sender {

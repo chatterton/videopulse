@@ -8,7 +8,26 @@
 
 #import "VPLineChartDataSource.h"
 
+@interface VPLineChartDataSource () {
+    NSMutableArray *sampleBuffer;
+}
+@end
+
 @implementation VPLineChartDataSource
+
+-(id)init {
+    if ( self = [super init] ) {
+        sampleBuffer = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void)addSample:(float)val {
+    [sampleBuffer insertObject:[NSNumber numberWithFloat:val] atIndex:0];
+    if (sampleBuffer.count > sampleBufferSize) {
+        [sampleBuffer removeLastObject];
+    }
+}
 
 #pragma mark - JBLineChartViewDataSource
 
@@ -17,27 +36,13 @@
 }
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex {
-    return 3;
+    return sampleBuffer.count;
 }
 
 #pragma mark - JBLineChartViewDelegate
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
-    float val = 0;
-    switch (horizontalIndex) {
-        case 0:
-            val = 0.3;
-            break;
-        case 1:
-            val = 0.75;
-            break;
-        case 2:
-            val = 0.2;
-            break;
-    }
-    return val;
+    return [(NSNumber *)[sampleBuffer objectAtIndex:horizontalIndex] floatValue];
 }
-
-
 
 @end
