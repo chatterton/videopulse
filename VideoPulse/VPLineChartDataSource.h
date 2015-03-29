@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "JBLineChartView.h"
 
-NSInteger const sampleBufferSize = 100;
+@class VPPulseModel;
 
 @interface VPLineChartDataSource : NSObject <JBLineChartViewDataSource, JBLineChartViewDelegate>
 
-- (void)addSample:(float)val;
+-(id)initWithModel:(VPPulseModel *)m;
 
 @end

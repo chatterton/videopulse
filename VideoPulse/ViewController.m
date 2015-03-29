@@ -14,6 +14,7 @@
 #import "VPVideoDivider.h"
 #import "VPCapture.h"
 #import "VPLineChartDataSource.h"
+#import "VPPulseModel.h"
 
 @interface ViewController () {
     AVPlayer *player;
@@ -21,6 +22,7 @@
     VPVideoDivider *divider;
     VPCapture *capture;
     VPLineChartDataSource *lineChartSource;
+    VPPulseModel *model;
 }
 @end
 
@@ -44,7 +46,8 @@
 
     percentages.text = @"";
 
-    lineChartSource = [[VPLineChartDataSource alloc] init];
+    model = [[VPPulseModel alloc] init];
+    lineChartSource = [[VPLineChartDataSource alloc] initWithModel:model];
     lineChartView.dataSource = lineChartSource;
     lineChartView.delegate = lineChartSource;
 }
@@ -58,7 +61,7 @@
         NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
         [percentages setText:new];
 
-        [lineChartSource addSample:[processor lastRedPercent]];
+        [model addSample:[processor lastRedPercent] atTime:[[NSDate date] timeIntervalSince1970]];
         [lineChartView reloadData];
     }
 }
