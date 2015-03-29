@@ -36,15 +36,17 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
 }
 
 - (NSArray *)render:(NSInteger)sampleCount {
+    // sanity check
     if ([timeBuffer count] < 2) {
         return @[];
     }
-    double firstTime = [(NSNumber *)[timeBuffer objectAtIndex:([timeBuffer count] - 1)] doubleValue];
+
+    long bufferIndex = ([timeBuffer count] - 1); // last to first
+    double firstTime = [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue];
     double lastTime = [(NSNumber *)[timeBuffer objectAtIndex:0] doubleValue];
     double tick = (lastTime - firstTime) / sampleCount;
-    float value = [(NSNumber *)[sampleBuffer objectAtIndex:([sampleBuffer count] - 1)] floatValue];
+    float value = [(NSNumber *)[sampleBuffer objectAtIndex:bufferIndex] floatValue];
     double time = firstTime;
-    long bufferIndex = ([timeBuffer count] - 1);
 
     NSMutableArray *output = [NSMutableArray arrayWithCapacity:sampleCount];
     for (int i = 0; i < sampleCount; i++) {
