@@ -13,7 +13,7 @@
     CIContext *ciContext;
 }
 
-const float FACE_CROP_FACTOR = 0.5;
+const float FACE_CROP_FACTOR = 0.3;
 
 -(id)init {
     if ( self = [super init] ) {

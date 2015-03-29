@@ -13,12 +13,16 @@
 #import "VPStreamProcessor.h"
 #import "VPVideoDivider.h"
 #import "VPCapture.h"
+#import "VPLineChartDataSource.h"
+#import "VPPulseModel.h"
 
 @interface ViewController () {
     AVPlayer *player;
     VPStreamProcessor *processor;
     VPVideoDivider *divider;
     VPCapture *capture;
+    VPLineChartDataSource *lineChartSource;
+    VPPulseModel *model;
 }
 @end
 
@@ -41,6 +45,11 @@
     capture = [[VPCapture alloc] init];
 
     percentages.text = @"";
+
+    model = [[VPPulseModel alloc] init];
+    lineChartSource = [[VPLineChartDataSource alloc] initWithModel:model];
+    lineChartView.dataSource = lineChartSource;
+    lineChartView.delegate = lineChartSource;
 }
 
 - (void)process:(CGImageRef)image toOutput:(UIImageView *)imageView {
@@ -48,8 +57,13 @@
     [imageView setImage:[UIImage imageWithCGImage:[processor lastProcessedImage]]];
     [averageColorView setBackgroundColor:[processor lastAverageColor]];
 
-    NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
-    [percentages setText:new];
+    if ([processor lastRedPercent] > 0.0) {
+        NSString *new = [NSString stringWithFormat:@"%f \n %@", [processor lastRedPercent], percentages.text];
+        [percentages setText:new];
+
+        [model addSample:[processor lastRedPercent] atTime:[[NSDate date] timeIntervalSince1970]];
+        [lineChartView reloadData];
+    }
 }
 
 - (IBAction)playVideo:(id) sender {
