@@ -36,6 +36,7 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
 }
 
 - (NSArray *)render:(int)sampleCount {
+    // create array of size n
     NSMutableArray *output = [NSMutableArray array];
     for (int i = 0; i < sampleCount; i++) {
         [output  insertObject:[NSNumber numberWithFloat:0.5] atIndex:0];
@@ -55,18 +56,46 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
     double timeNow = firstTime;
     double timeNext = [(NSNumber *)[timeBuffer objectAtIndex:(bufferIndex - 1)] doubleValue];
 
-    //float output[sampleCount];
-
     int i = sampleCount - 1;
-    while (i >= 0) {
-        [output replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:valueNow]];
-        timeNow += tick;
-        if ((bufferIndex > 0) && (timeNow > [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue])) {
-            valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:([sampleBuffer count] - 1 - bufferIndex)] floatValue];
+    int count = 0;
+    float done = false;
+    while (i > 0) {
+        if (timeNow >= timeNext) {
+            for (int j = 0; j < count; j++) {
+                float stepValue = valueNow + ((valueNext - valueNow) * ((float)j / count));
+                NSLog(@"putting val %f at index %i", stepValue, i);
+                [output replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:stepValue]];
+                i--;
+            }
+            count = -1;
             bufferIndex--;
+
+            if (bufferIndex > 0) {
+                // Another sample in buffer
+                timeNow = timeNext;
+                timeNext = [(NSNumber *)[timeBuffer objectAtIndex:(bufferIndex - 1)] doubleValue];
+                valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:bufferIndex] floatValue];
+                valueNext = [(NSNumber *)[sampleBuffer objectAtIndex:(bufferIndex - 1)] floatValue];
+            } else {
+                // No more buffer: finish
+                if (i > 0) {
+                    NSLog(@"finish him! count = %i index = %i", count, i);
+                    timeNow = timeNext;
+                    valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:0] floatValue];
+                    valueNext = valueNow;
+                    count = i+1;
+                }
+            }
+        } else {
+            timeNow += tick;
+            if (count < sampleCount) {
+                count++;
+            }
         }
-        i--;
+        NSLog(@"loop end, count = %i", count);
     }
+
+    NSLog(@"returning output");
 
     return output;
 }

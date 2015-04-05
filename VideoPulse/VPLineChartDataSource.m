@@ -9,7 +9,7 @@
 #import "VPLineChartDataSource.h"
 #import "VPPulseModel.h"
 
-const int LINE_CHART_POINTS = 1000;
+const int LINE_CHART_POINTS = 100;
 
 @interface VPLineChartDataSource () {
     VPPulseModel *model;
