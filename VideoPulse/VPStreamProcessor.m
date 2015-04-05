@@ -20,9 +20,10 @@ const float FACE_CROP_FACTOR = 0.3;
         EAGLContext *eagl = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         ciContext = [CIContext contextWithEAGLContext:eagl];
         [EAGLContext setCurrentContext:eagl]; // todo: this may not be doing anything useful
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
         detector =[CIDetector detectorOfType:CIDetectorTypeFace
                                      context:ciContext
-                                     options:nil];
+                                     options:options];
     }
     return self;
 }

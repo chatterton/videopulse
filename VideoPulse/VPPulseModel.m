@@ -8,7 +8,7 @@
 
 #import "VPPulseModel.h"
 
-NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
+NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = 6.9s, so we're processing ~7 samples / sec
 
 @interface VPPulseModel () {
     NSMutableArray *sampleBuffer;
@@ -94,6 +94,8 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
             }
         }
     }
+
+    // NSLog(@"rendered graph with time %f", lastTime - firstTime);
 
     return output;
 }
