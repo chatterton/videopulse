@@ -77,19 +77,14 @@ const float FACE_CROP_FACTOR = 0.3;
 }
 
 - (void)process:(CGImageRef)image {
-    //NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSince1970];
-    //NSLog(@"got one: %zu %zu at time %f", CGImageGetWidth(image), CGImageGetHeight(image), timeInMiliseconds);
-
     CIImage *frame = [CIImage imageWithCGImage:image];
     CIImage *processed = [self getFaceFromFrame:frame];
-
     if (processed) {
         CGImageRef ref = [ciContext createCGImage:processed fromRect:[frame extent]];
         CGImageRelease(self.lastProcessedImage);
         self.lastProcessedImage = ref;
         [self updateOutputsFromFace:ref];
     }
-
 }
 
 @end

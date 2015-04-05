@@ -47,6 +47,7 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
         return output;
     }
 
+    // set up first window
     long bufferIndex = ([timeBuffer count] - 1); // last to first
     double firstTime = [(NSNumber *)[timeBuffer objectAtIndex:bufferIndex] doubleValue];
     double lastTime = [(NSNumber *)[timeBuffer objectAtIndex:0] doubleValue];
@@ -56,30 +57,30 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
     double timeNow = firstTime;
     double timeNext = [(NSNumber *)[timeBuffer objectAtIndex:(bufferIndex - 1)] doubleValue];
 
+    // loop through all windows and tween values
     int i = sampleCount - 1;
     int count = 0;
-    float done = false;
     while (i > 0) {
         if (timeNow >= timeNext) {
+            // fill in interim values
             for (int j = 0; j < count; j++) {
                 float stepValue = valueNow + ((valueNext - valueNow) * ((float)j / count));
-                NSLog(@"putting val %f at index %i", stepValue, i);
                 [output replaceObjectAtIndex:i withObject:[NSNumber numberWithFloat:stepValue]];
                 i--;
             }
             count = -1;
             bufferIndex--;
 
+            // set up next two samples
             if (bufferIndex > 0) {
-                // Another sample in buffer
+                // another sample in buffer, queue it up
                 timeNow = timeNext;
                 timeNext = [(NSNumber *)[timeBuffer objectAtIndex:(bufferIndex - 1)] doubleValue];
                 valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:bufferIndex] floatValue];
                 valueNext = [(NSNumber *)[sampleBuffer objectAtIndex:(bufferIndex - 1)] floatValue];
             } else {
-                // No more buffer: finish
+                // no more buffer: finish
                 if (i > 0) {
-                    NSLog(@"finish him! count = %i index = %i", count, i);
                     timeNow = timeNext;
                     valueNow = [(NSNumber *)[sampleBuffer objectAtIndex:0] floatValue];
                     valueNext = valueNow;
@@ -92,10 +93,7 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = about 1.24 s
                 count++;
             }
         }
-        NSLog(@"loop end, count = %i", count);
     }
-
-    NSLog(@"returning output");
 
     return output;
 }
