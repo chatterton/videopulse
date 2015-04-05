@@ -12,6 +12,6 @@
 
 - (void)addSample:(float)val atTime:(NSTimeInterval)time;
 
-- (NSArray *)render:(NSInteger)sampleCount;
+- (NSArray *)render:(int)sampleCount;
 
 @end

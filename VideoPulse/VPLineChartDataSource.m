@@ -9,6 +9,8 @@
 #import "VPLineChartDataSource.h"
 #import "VPPulseModel.h"
 
+const int LINE_CHART_POINTS = 400;
+
 @interface VPLineChartDataSource () {
     VPPulseModel *model;
     NSArray *lastArray;
@@ -31,7 +33,7 @@
 }
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex {
-    lastArray = [model render:0];
+    lastArray = [model render:LINE_CHART_POINTS];
     return [lastArray count];
 }
 
