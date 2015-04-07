@@ -26,6 +26,7 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = 6.9s, so we're processing ~7 sa
     return self;
 }
 
+// this method assumes samples are added with monotonically increasing times
 - (void)addSample:(float)val atTime:(NSTimeInterval)time {
     [sampleBuffer insertObject:[NSNumber numberWithFloat:val] atIndex:0];
     [timeBuffer insertObject:[NSNumber numberWithDouble:time] atIndex:0];
@@ -33,6 +34,8 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = 6.9s, so we're processing ~7 sa
         [sampleBuffer removeLastObject];
         [timeBuffer removeLastObject];
     }
+    self.firstTime = [(NSNumber *)[timeBuffer objectAtIndex:(timeBuffer.count - 1)] doubleValue];
+    self.lastTime = time;
 }
 
 - (NSArray *)render:(int)sampleCount {

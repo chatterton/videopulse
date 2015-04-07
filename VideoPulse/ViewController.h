@@ -18,6 +18,7 @@
     IBOutlet UIView *averageColorView;
     IBOutlet UITextView *percentages;
     IBOutlet JBLineChartView *lineChartView;
+    IBOutlet UITextView *counterLog;
 }
 
 

@@ -63,6 +63,7 @@
 
         [model addSample:[processor lastRedPercent] atTime:[[NSDate date] timeIntervalSince1970]];
         [lineChartView reloadData];
+        [self updateCounterLog];
     }
 }
 
@@ -75,6 +76,14 @@
 
 - (void)processVideoFrameCallback:(CGImageRef) image {
     [self process:image toOutput:videoFrameOutput];
+}
+
+- (void)updateCounterLog {
+    NSTimeInterval seconds = 0;
+    if (model.firstTime && model.lastTime) {
+        seconds = model.lastTime - model.firstTime;
+    }
+    counterLog.text = [NSString stringWithFormat:@"Buffer length: %.1f s", seconds];
 }
 
 - (IBAction)startCameraCapture:(id) sender {

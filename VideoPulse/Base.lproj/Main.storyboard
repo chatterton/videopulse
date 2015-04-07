@@ -82,14 +82,20 @@
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WOT-sw-TAe">
                                 <rect key="frame" x="722" y="285" width="159" height="277"/>
-                                <color key="backgroundColor" red="0.95140540081521741" green="0.95140540081521741" blue="0.95140540081521741" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yld-uB-OAT" customClass="JBLineChartView">
                                 <rect key="frame" x="94" y="608" width="612" height="76"/>
-                                <color key="backgroundColor" red="0.93414572010869568" green="0.93414572010869568" blue="0.93414572010869568" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-Ki-P0p">
+                                <rect key="frame" x="722" y="608" width="159" height="76"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -125,6 +131,7 @@
                     <connections>
                         <outlet property="averageColorView" destination="opU-48-yi7" id="iRT-jT-bNw"/>
                         <outlet property="cameraFrame" destination="CD0-EQ-JXH" id="1wa-Ip-sjY"/>
+                        <outlet property="counterLog" destination="CUm-Ki-P0p" id="eVX-WD-rnh"/>
                         <outlet property="lineChartView" destination="yld-uB-OAT" id="4PB-ft-9hw"/>
                         <outlet property="percentages" destination="WOT-sw-TAe" id="fRq-JY-5bD"/>
                         <outlet property="playerView" destination="3wq-Zj-GPP" id="8WM-Nf-xxL"/>

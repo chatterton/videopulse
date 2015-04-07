@@ -10,6 +10,9 @@
 
 @interface VPPulseModel : NSObject
 
+@property NSTimeInterval firstTime;
+@property NSTimeInterval lastTime;
+
 - (void)addSample:(float)val atTime:(NSTimeInterval)time;
 
 - (NSArray *)render:(int)sampleCount;
