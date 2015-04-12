@@ -83,7 +83,14 @@
     if (model.firstTime && model.lastTime) {
         seconds = model.lastTime - model.firstTime;
     }
-    counterLog.text = [NSString stringWithFormat:@"Buffer length: %.1f s", seconds];
+    NSInteger peakCount = model.peakCount;
+    float bpm;
+    if (peakCount && seconds != 0) {
+        bpm = (((float)peakCount) / seconds) * 60.0;
+    } else {
+        bpm = 0;
+    }
+    counterLog.text = [NSString stringWithFormat:@"Buffer length: %.1f s \nPeaks: %i \nBPM: %f", seconds, (int)model.peakCount, bpm];
 }
 
 - (IBAction)startCameraCapture:(id) sender {

@@ -12,6 +12,7 @@
 
 @property NSTimeInterval firstTime;
 @property NSTimeInterval lastTime;
+@property NSInteger peakCount;
 
 - (void)addSample:(float)val atTime:(NSTimeInterval)time;
 

@@ -38,6 +38,23 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = 6.9s, so we're processing ~7 sa
     self.lastTime = time;
 }
 
+// assumes buffer is an array of nsnumbers w/ float
+- (int)countPeaks:(NSArray *)buffer {
+    int count = 0;
+    float prev = [(NSNumber *)[buffer objectAtIndex:0] floatValue];
+    float curr = [(NSNumber *)[buffer objectAtIndex:1] floatValue];
+    float next;
+    for (int i = 1; i < (buffer.count - 1); i++) {
+        next = [(NSNumber *)[buffer objectAtIndex:i+1] floatValue];
+        if (curr > prev && curr > next) {
+            count++;
+        }
+        prev = curr;
+        curr = next;
+    }
+    return count;
+}
+
 - (NSArray *)render:(int)sampleCount {
     // create array of size n
     NSMutableArray *output = [NSMutableArray array];
@@ -99,6 +116,8 @@ NSInteger const SAMPLE_BUFFER_SIZE = 50; // 50 = 6.9s, so we're processing ~7 sa
     }
 
     // NSLog(@"rendered graph with time %f", lastTime - firstTime);
+
+    self.peakCount = [self countPeaks:output];
 
     return output;
 }
